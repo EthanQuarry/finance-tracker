@@ -1,10 +1,4 @@
-"use client"
-
-
-
 import { CreditCard, LogOut, PlusCircle, Settings, User } from "lucide-react"
-
-import { useParams } from 'next/navigation'
 
 import {
   Avatar,
@@ -22,52 +16,42 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
+import { InferGetServerSidePropsType } from "next"
+import { useParams } from "next/navigation"
 
+// this is a server component so server requests are permitted
 
-export async function UserNav() {
+export const getData = async () => {
   const params = useParams();
   const id = params.id;
   
-  const [userData, setUserData] = useState({
-    user: {
-      id: '',
-      createdAt: '',
-      updateAt: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-    }
-  });
+  // for server component requests absolute url required
+  const res = await fetch('http://localhost:3000/api/user/getUserById', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: id })
+  })
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`/api/user/getUserById`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ id: id }),
-        });
+  if (!res.ok) {
+    return { error: { message: 'Something went wrong' } }
+  } else {
+      const data = await res.json();
+      return data
+      
+  }
 
-        if (response.ok) {
-          const data = await response.json();
-          setUserData(data);
-        } else {
-          console.error('Failed to fetch user data');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      } 
-    };
 
-    if (id) {
-      fetchUserData();
-    }
-  }, [id]);
+}
+export async function UserNav() {
+  // getting data from getData function
+  // this returns { user: { firstName: 'John', lastName: 'Doe', email: 'john.doe@gmail' }}}
+  const data = await getData();
+  const user = data.user;
+  const { firstName, lastName, email } = user;
 
- // TODO this is very bad practice but i am too lazy to fix it right now
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -81,9 +65,9 @@ export async function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{userData.user.firstName}</p>
+            <p className="text-sm font-medium leading-none">{firstName}{" "}{lastName}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {}
+              {email}
             </p>
           </div>
         </DropdownMenuLabel>

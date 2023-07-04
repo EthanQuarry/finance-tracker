@@ -26,7 +26,6 @@ import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recentSales"
 import { Search } from "@/components/search"
 import { UserNav } from "@/components/userNav"
-import { useEffect, useState } from "react"
 
 
 export const metadata: Metadata = {
