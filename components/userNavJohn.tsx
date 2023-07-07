@@ -19,38 +19,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { use, useEffect, useState } from 'react'
+import { InferGetServerSidePropsType } from "next"
 import { useParams } from "next/navigation"
 
-// this is a server component so server requests are permitted
 
-export const getData = async () => {
-  const params = useParams();
-  const id = params.id;
-  
-  // for server component requests absolute url required
-  const res = await fetch('http://localhost:3000/api/user/getUserById', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: id }),
-      cache: 'force-cache',
-  })
 
-  if (!res.ok) {
-    return { error: { message: 'Something went wrong' } }
-  } else {
-      const data = await res.json();
-      return data;
-  }
-}
-export async function UserNav() {
-  // getting data from getData function
-  // this returns { user: { firstName: 'John', lastName: 'Doe', email: 'john.doe@gmail' }}}
-  const data = await getData();
-  const user = data.user;
-  const { firstName, lastName, email } = user;
-
+export async function UserNavJohn() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -64,9 +38,9 @@ export async function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{firstName}{" "}{lastName}</p>
+            <p className="text-sm font-medium leading-none">John Test</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {email}
+              johntest@gmail.com
             </p>
           </div>
         </DropdownMenuLabel>

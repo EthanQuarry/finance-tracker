@@ -29,3 +29,24 @@ model user {
   password  String
   isAdmin   Boolean @default(false)
 }
+
+model financials {
+  id        String      @id 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  monthlySaving String
+  monthlyProfit String
+  rent String
+  utilities String
+  
+  food String
+  subscriptions String
+  transportation String
+  entertainment String
+  
+  funExpenses String
+  investmentExpenses String
+  memberships String
+  miscellaneous String
+}

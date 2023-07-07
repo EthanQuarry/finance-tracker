@@ -27,7 +27,6 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
       email: email,
       password: password,
     }
-    console.log(formData)
     try {
       const response = await fetch("/api/user/login", {
         method: "POST",
@@ -52,7 +51,7 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
     setTimeout(() => {
       setIsLoading(false)
 
-    }, 5000)
+    }, 10000)
   }
 
   return (

@@ -42,8 +42,8 @@ export function UserSignUp({ className, ...props }: UserAuthFormProps) {
       })
       if ( response.status === 200) {
         const data = await response.json()
-        const { user } = data;        
-        router.push(`/dashboard`, `/dashboard/${user.id}`)
+        const id = data.user.id       
+        router.push(`/form/${id}`)
       } else {
         console.log("An error occurred")
       }
@@ -56,7 +56,7 @@ export function UserSignUp({ className, ...props }: UserAuthFormProps) {
     setTimeout(() => {
       setIsLoading(false)
 
-    }, 5000)
+    }, 10000)
   }
 
   return (

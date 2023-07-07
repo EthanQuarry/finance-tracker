@@ -31,7 +31,7 @@ export default async function handler(req, res) {
             )
             
             if (!user.ok) {
-                return res.status(200).json({message: 'Successfully Created Account'})
+                return res.status(200).json({user: user})
             } else return res.status(500).json({message: 'Error Occured: Please try again later'})
     
         } else return res.status(400).json({message: 'User Email Already Exists'})
