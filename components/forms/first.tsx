@@ -3,10 +3,10 @@ import { Card } from "../ui/card";
 import InputTitle from "../ui/inputTitle";
 
 type firstData = {
-    monthlySaving: string
-    monthlyProfit: string
-    rent: string
-    utilities: string
+    monthlySaving: number | null
+    monthlyProfit: number | null
+    rent: number | null
+    utilities: number | null
   }
 
   type firstFormProps = firstData & {
@@ -21,31 +21,31 @@ export function First({ monthlySaving, monthlyProfit, rent, utilities, handleCha
         <Input
             type="number"
             name="monthlySaving"
-            onChange={e => handleChange({ monthlySaving: e.target.value})}
-            value={monthlySaving}
+            onChange={e => handleChange({ monthlySaving: parseInt( e.target.value)})}
+            value={monthlySaving?.toString()}
         />
 
         <InputTitle >Income after tax</InputTitle>
         <Input
             type="number"
             name="monthlyProfit"
-            onChange={e => handleChange({ monthlyProfit: e.target.value})}
-            value={monthlyProfit}
+            onChange={e => handleChange({ monthlyProfit: parseInt( e.target.value)})}
+            value={monthlyProfit?.toString()}
         />
         <InputTitle >Rent</InputTitle>
         <Input
             type="number"
             name="rent"
-            onChange={e => handleChange({ rent: e.target.value})}
-            value={rent}
+            onChange={e => handleChange({ rent: parseInt( e.target.value)})}
+            value={rent?.toString()}
         />
         <InputTitle>Utilities</InputTitle>
         <Input
             type="number"
             name="utilities"
-            onChange={e => handleChange({ utilities: e.target.value}
+            onChange={e => handleChange({ utilities: parseInt( e.target.value)}
             )}
-            value={utilities}
+            value={utilities?.toString()}
         />
 
     </Card>

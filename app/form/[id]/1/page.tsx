@@ -25,6 +25,7 @@ import { First } from "@/components/forms/first"
 import { Second } from "@/components/forms/second"
 import { Third } from "@/components/forms/third"
 import { FormEvent, useState } from "react"
+import { type } from "os";
 
 
 export const metadata: Metadata = {
@@ -45,39 +46,38 @@ const formSchema = z.object({
 
 
 type FormData = {
-     monthlySaving: string,
-        monthlyProfit: string,
-        rent: string,
-        utilities: string,
+     monthlySaving: number | null,
+        monthlyProfit: number | null,
+        rent: number | null,
+        utilities: number | null,
 
-        food: string,
-        subscriptions: string,
-        transportation: string, 
-        entertainment: string,
+        food: number | null,
+        subscriptions: number | null,
+        transportation: number | null, 
+        entertainment: number | null,
 
-        funExpenses: string,
-        investmentExpenses: string,
-        memberships: string,
-        miscellaneous: string,
+        funExpenses: number | null,
+        investmentExpenses: number | null,
+        memberships: number | null,
+        miscellaneous: number | null,
         
   }
 
   const INITIAL_DATA: FormData = {
-    monthlySaving: '',
-    monthlyProfit: '',
-    rent: '',
-    utilities: '',
+    monthlySaving: null,
+    monthlyProfit: null,
+    rent: null,
+    utilities: null,
 
-    food: '',
-    subscriptions: '',
-    transportation: '', 
-    entertainment: '',
+    food: null,
+    subscriptions: null,
+    transportation: null, 
+    entertainment: null,
 
-    funExpenses: '',
-    investmentExpenses: '',
-    memberships: '',
-    miscellaneous: '',
-    
+    funExpenses: null,
+    investmentExpenses: null,
+    memberships: null,
+    miscellaneous: null,    
   }
   
 
@@ -106,7 +106,20 @@ export default function ExamplesLayout() {
                 }, 
                 body: JSON.stringify({
                     id: id,
-                    ...formData
+                    monthlySaving: formData.monthlySaving,
+                    monthlyProfit: formData.monthlyProfit,
+                    rent: formData.rent,
+                    utilities: formData.utilities,
+
+                    food: formData.food,
+                    subscriptions: formData.subscriptions,
+                    transportation: formData.transportation,
+                    entertainment: formData.entertainment,
+
+                    funExpenses: formData.funExpenses,
+                    investmentExpenses: formData.investmentExpenses,
+                    memberships: formData.memberships,
+                    miscellaneous: formData.miscellaneous,
                 }),
             });
             

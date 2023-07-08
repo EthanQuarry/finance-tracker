@@ -61,18 +61,18 @@ export default function AuthenticationPage() {
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
-              <Alert> 
+              {/* <Alert> 
                 <Terminal className="h-4 w-4" />
                 <AlertTitle>Heads up!</AlertTitle>
                 <AlertDescription>
                   You can add components and dependencies to your app using the cli.
                 </AlertDescription>
-              </Alert>
+              </Alert> */}
               <h1 className="text-2xl font-semibold tracking-tight">
                 Create an account
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email below to create your account
+                Enter your details below and create an account.
               </p>
             </div>
             <UserSignUp />

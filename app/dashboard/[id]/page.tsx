@@ -1,9 +1,8 @@
 
 
 import { Metadata } from "next"
-import Image from "next/image"
 
-
+import { cookies } from "next/headers";
 import { Activity, CreditCard, DollarSign, Download, Users } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -26,23 +25,51 @@ import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recentSales"
 import { Search } from "@/components/search"
 import { UserNav } from "@/components/userNav"
-
+import { getIdFromCookie } from "@/lib/auth"
+import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app using the components.",
 }
 
-interface DashboardPageProps {
-  params: {
-    id: string
-  }
+
+
+const getData = async () => {
+  const id = await getIdFromCookie(cookies())
+  const financials = await db.financials.findUnique({
+    where: {
+      id: id
+    }
+  })
+
+  return financials
 }
 
- const DashboardPage: React.FC<DashboardPageProps> = ({ params }) => {
+
+const DashboardPage = async () => {
   const percentMonthlyRevenue = "+124.4%";
   const percentMonthlyExpenses = "-114.0%";
-  return (
+
+  const {
+    monthlySaving,
+    monthlyProfit,
+    rent, utilities,
+    food,
+    subscriptions,
+    transportation,
+    entertainment,
+    funExpenses,
+    investmentExpenses,
+    memberships,
+    miscellaneous
+  } = await getData() || {};
+
+
+
+  const monthlyExpenses = rent + utilities + food + subscriptions + transportation + entertainment + funExpenses + investmentExpenses + memberships + miscellaneous
+  const monthlyActualProfit = monthlyProfit - monthlyExpenses;
+    return (
     <>
       <div className="md:hidden">
         {/* <Image
@@ -99,42 +126,42 @@ interface DashboardPageProps {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Total Revenue
+                      Total Monthly Revenue
                     </CardTitle>
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
                     <div
-                    
-                    
-                    
-                    className="text-2xl font-bold">monthy revenue</div>
+
+
+
+                      className="text-2xl font-bold">{monthlyProfit}</div>
                     <p className="text-xs text-muted-foreground">
-                    {`${percentMonthlyRevenue} from last month`}
+                      {`${percentMonthlyRevenue} from last month`}
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      monthy expenses 
+                       Total Monthly Expenses
                     </CardTitle>
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+2350</div>
+                    <div className="text-2xl font-bold">{monthlyExpenses}</div>
                     <p className="text-xs text-muted-foreground">
-                    {`${percentMonthlyExpenses} from last month`}
+                      {`${percentMonthlyExpenses} from last month`}
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                    <CardTitle className="text-sm font-medium">Monthly Saving Goals</CardTitle>
                     <CreditCard className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+12,234</div>
+                    <div className="text-2xl font-bold">{monthlySaving}</div>
                     <p className="text-xs text-muted-foreground">
                       +19% from last month
                     </p>
@@ -143,12 +170,12 @@ interface DashboardPageProps {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Active Now
+                      Monthly Profit
                     </CardTitle>
                     <Activity className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+573</div>
+                    <div className="text-2xl font-bold">{monthlyActualProfit}</div>
                     <p className="text-xs text-muted-foreground">
                       +201 since last hour
                     </p>

@@ -28,13 +28,12 @@ export const getData = async () => {
   const id = params.id;
   
   // for server component requests absolute url required
-  const res = await fetch('http://localhost:3000/api/user/getUserById', {
+  const res = await fetch(`http://localhost:3000/api/user/getUserById`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
       },
       body: JSON.stringify({ id: id }),
-      cache: 'force-cache',
   })
 
   if (!res.ok) {

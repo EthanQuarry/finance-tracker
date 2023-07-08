@@ -3,10 +3,10 @@ import { Card } from "../ui/card";
 import InputTitle from "../ui/inputTitle";
 
 type thirdData = {
-    funExpenses: string
-    investmentExpenses: string
-    memberships: string
-    miscellaneous: string
+    funExpenses: number | null
+    investmentExpenses: number | null
+    memberships: number | null
+    miscellaneous: number | null
 }
 
 type thirdFormProps = thirdData & {
@@ -23,31 +23,31 @@ export function Third({ funExpenses, investmentExpenses, memberships, miscellane
             <Input
                 type="number"
                 name="funExpenses"
-                onChange={e => handleChange({ funExpenses: e.target.value })}
-                value={funExpenses}
+                onChange={e => handleChange({ funExpenses: parseInt(e.target.value) })}
+                value={funExpenses?.toString()}
             />
 
             <InputTitle >Investment Expenses</InputTitle>
             <Input
                 type="number"
                 name="investmentExpenses"
-                onChange={e => handleChange({ investmentExpenses: e.target.value })}
-                value={investmentExpenses}
+                onChange={e => handleChange({ investmentExpenses: parseInt(e.target.value) })}
+                value={investmentExpenses?.toString()}
 
             />
             <InputTitle > Memberships</InputTitle>
             <Input
                 type="number"
                 name="memberships"
-                onChange={e => handleChange({ memberships: e.target.value })}
-                value={memberships}
+                onChange={e => handleChange({ memberships: parseInt(e.target.value) })}
+                value={memberships?.toString()}
             />
             <InputTitle > Miscellaneous</InputTitle>
             <Input
                 type="number"
                 name="miscellaneous"
-                onChange={e => handleChange({ miscellaneous: e.target.value })}
-                value={miscellaneous}
+                onChange={e => handleChange({ miscellaneous: parseInt(e.target.value) })}
+                value={miscellaneous?.toString()}
             />
         </Card>
     )

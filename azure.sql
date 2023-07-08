@@ -14,16 +14,16 @@ CREATE TABLE [Financials] (
   createdAt DATETIME2(7) DEFAULT GETDATE(),
   updatedAt DATETIME2(7) DEFAULT GETDATE(), 
 
-  monthlySaving NVARCHAR(255),
-  monthlyProfit NVARCHAR(255),
-  rent NVARCHAR(255),
-  utilities NVARCHAR(255),
-  food NVARCHAR(255),
-  subscriptions NVARCHAR(255),
-  transportation NVARCHAR(255),
-  entertainment NVARCHAR(255),
-  funExpenses NVARCHAR(255),
-  investmentExpenses NVARCHAR(255),
-  memberships NVARCHAR(255),
-  miscellaneous NVARCHAR(255)
+  monthlySaving INT,
+  monthlyProfit INT,
+  rent INT,
+  utilities INT,
+  food INT,
+  subscriptions INT,
+  transportation INT,
+  entertainment INT,
+  funExpenses INT,
+  investmentExpenses INT,
+  memberships INT,
+  miscellaneous INT
 );

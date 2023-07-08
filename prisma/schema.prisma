@@ -35,18 +35,19 @@ model financials {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  monthlySaving String
-  monthlyProfit String
-  rent String
-  utilities String
+  monthlySaving Int
+  monthlyProfit Int
+  rent Int
+  utilities Int
   
-  food String
-  subscriptions String
-  transportation String
-  entertainment String
+  food Int
+  subscriptions Int
+  transportation Int
+  entertainment Int
   
-  funExpenses String
-  investmentExpenses String
-  memberships String
-  miscellaneous String
+  funExpenses Int
+  investmentExpenses Int
+  memberships Int
+  miscellaneous Int
 }
+

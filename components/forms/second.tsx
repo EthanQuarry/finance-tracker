@@ -4,10 +4,10 @@ import InputTitle from "../ui/inputTitle";
 
 
 type secondData = {
-    food: string
-    subscriptions: string
-    transportation: string
-    entertainment: string
+    food: number | null
+    subscriptions: number | null
+    transportation: number | null
+    entertainment: number | null
   }
 
   type secondFormProps = secondData & {
@@ -23,30 +23,30 @@ export function Second({ food, subscriptions, transportation, entertainment, han
             <Input
                 type="number"
                 name="food"
-                onChange={e => handleChange({ food: e.target.value})}
-                value={food}
+                onChange={e => handleChange({ food: parseInt( e.target.value)})}
+                value={food?.toString()}
             />
 
             <InputTitle >Subscriptions</InputTitle>
             <Input
                 type="number"
                 name="subscriptions"
-                onChange={e => handleChange({ subscriptions: e.target.value})}
-                value={subscriptions}
+                onChange={e => handleChange({ subscriptions: parseInt( e.target.value)})}
+                value={subscriptions?.toString()}
             />
             <InputTitle > Transportation</InputTitle>
             <Input
                 type="number"
                 name="transportation"
-                onChange={e => handleChange({ transportation: e.target.value})}
-                value={transportation}
+                onChange={e => handleChange({ transportation:parseInt( e.target.value)})}
+                value={transportation?.toString()}
             />
             <InputTitle > Entertainment</InputTitle>
             <Input
                 type="number"
                 name="entertainment"
-                onChange={e => handleChange({ entertainment: e.target.value})}
-                value={entertainment}
+                onChange={e => handleChange({ entertainment: parseInt( e.target.value)})}
+                value={entertainment?.toString()}
             />
 
         </Card>
