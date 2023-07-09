@@ -38,7 +38,7 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
       if ( response.status === 200) {
         const data = await response.json()
         const id = data.user.id       
-        router.push(`/dashboard/${id}`)
+        router.push(`/dashboard`)
       } else {
         console.log("An error occurred")
       }

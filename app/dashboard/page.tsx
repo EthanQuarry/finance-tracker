@@ -1,5 +1,3 @@
-
-
 import { Metadata } from "next"
 
 import { cookies } from "next/headers";
@@ -27,6 +25,7 @@ import { Search } from "@/components/search"
 import { UserNav } from "@/components/userNav"
 import { getIdFromCookie } from "@/lib/auth"
 import { db } from "@/lib/db";
+import DashboardPie from "@/components/dashboard-pie";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -46,8 +45,24 @@ const getData = async () => {
   return financials
 }
 
+type DashboardPageProps = {
+  monthlySaving: number | null
+  monthlyProfit: number | null
+  rent: number | null
+  utilities: number | null
+  food: number | null
+  subscriptions: number | null
+  transportation: number | null
+  entertainment: number | null
+  funExpenses: number | null
+  investmentExpenses: number | null
+  memberships: number | null
+  miscellaneous: number | null
+  monthlyExpenses: number | null
+}
 
-const DashboardPage = async () => {
+
+const DashboardPage: React.FC<DashboardPageProps> = async () => {
   const percentMonthlyRevenue = "+124.4%";
   const percentMonthlyExpenses = "-114.0%";
 
@@ -69,47 +84,18 @@ const DashboardPage = async () => {
 
   const monthlyExpenses = rent + utilities + food + subscriptions + transportation + entertainment + funExpenses + investmentExpenses + memberships + miscellaneous
   const monthlyActualProfit = monthlyProfit - monthlyExpenses;
-    return (
+  return (
     <>
-      <div className="md:hidden">
-        {/* <Image
-          src="/examples/dashboard-light.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="block dark:hidden"
-        /> */}
-        {/* <Image
-          src="/examples/dashboard-dark.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="hidden dark:block"
-        /> */}
-      </div>
-      <div className="hidden flex-col md:flex">
-        <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            <MainNav className="mx-6" />
-            <div className="ml-auto flex items-center space-x-4">
-              <Search />
-              <UserNav />
-            </div>
-          </div>
-        </div>
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
               <CalendarDateRangePicker />
-              <Button>
-                <Download className="mr-2 h-4 w-4" />
-                Download
-              </Button>
+
             </div>
           </div>
           <Tabs defaultValue="overview" className="space-y-4">
-            <TabsList>
+            {/* <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="analytics" disabled>
                 Analytics
@@ -120,7 +106,7 @@ const DashboardPage = async () => {
               <TabsTrigger value="notifications" disabled>
                 Notifications
               </TabsTrigger>
-            </TabsList>
+            </TabsList> */}
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
@@ -135,23 +121,23 @@ const DashboardPage = async () => {
 
 
 
-                      className="text-2xl font-bold">{monthlyProfit}</div>
+                      className="text-2xl font-bold">{monthlyProfit}€ </div>
                     <p className="text-xs text-muted-foreground">
-                      {`${percentMonthlyRevenue} from last month`}
+                      {/* {`${percentMonthlyRevenue} from last month`} */}
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                       Total Monthly Expenses
+                      Total Monthly Expenses
                     </CardTitle>
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{monthlyExpenses}</div>
+                    <div className="text-2xl font-bold">{monthlyExpenses}€ </div>
                     <p className="text-xs text-muted-foreground">
-                      {`${percentMonthlyExpenses} from last month`}
+                      {/* {`${percentMonthlyExpenses} from last month`} */}
                     </p>
                   </CardContent>
                 </Card>
@@ -161,10 +147,10 @@ const DashboardPage = async () => {
                     <CreditCard className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{monthlySaving}</div>
-                    <p className="text-xs text-muted-foreground">
+                    <div className="text-2xl font-bold">{monthlySaving}€ </div>
+                    {/* <p className="text-xs text-muted-foreground">
                       +19% from last month
-                    </p>
+                    </p> */}
                   </CardContent>
                 </Card>
                 <Card>
@@ -175,10 +161,10 @@ const DashboardPage = async () => {
                     <Activity className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{monthlyActualProfit}</div>
-                    <p className="text-xs text-muted-foreground">
+                    <div className="text-2xl font-bold">{monthlyActualProfit}€ </div>
+                    {/* <p className="text-xs text-muted-foreground">
                       +201 since last hour
-                    </p>
+                    </p> */}
                   </CardContent>
                 </Card>
               </div>
@@ -188,25 +174,14 @@ const DashboardPage = async () => {
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <Overview />
+                    <Overview monthlyProfit={monthlyProfit} monthlyExpenses={monthlyExpenses} />
                   </CardContent>
                 </Card>
-                <Card className="col-span-3">
-                  <CardHeader>
-                    <CardTitle>Recent Sales</CardTitle>
-                    <CardDescription>
-                      You made 265 sales this month.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <RecentSales />
-                  </CardContent>
-                </Card>
+                  <DashboardPie />
               </div>
             </TabsContent>
           </Tabs>
         </div>
-      </div>
     </>
   )
 }

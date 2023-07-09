@@ -1,7 +1,7 @@
-"use client"
+
 
 import { CreditCard, LogOut, PlusCircle, Settings, User } from "lucide-react"
-
+import { getIdFromCookie } from "@/lib/auth"
 import {
   Avatar,
   AvatarFallback,
@@ -18,15 +18,15 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { use, useEffect, useState } from 'react'
-import { useParams } from "next/navigation"
+import { cookies } from "next/headers"
+import LogOutButton from "./log-out-button"
+
 
 // this is a server component so server requests are permitted
 
 export const getData = async () => {
-  const params = useParams();
-  const id = params.id;
-  
+    const id = await getIdFromCookie(cookies())
+
   // for server component requests absolute url required
   const res = await fetch(`http://localhost:3000/api/user/getUserById`, {
       method: 'POST',
@@ -74,17 +74,17 @@ export async function UserNav() {
           <DropdownMenuItem>
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
           </DropdownMenuItem>
           <DropdownMenuItem>
             <CreditCard className="mr-2 h-4 w-4" />
             <span>Billing</span>
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+            {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
           </DropdownMenuItem>
           <DropdownMenuItem>
             <PlusCircle className="mr-2 h-4 w-4" />
@@ -92,11 +92,7 @@ export async function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <LogOutButton />
       </DropdownMenuContent>
     </DropdownMenu>
   )

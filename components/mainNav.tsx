@@ -1,6 +1,8 @@
 import Link from "next/link"
-
 import { cn } from "@/lib/utils"
+
+
+
 
 export function MainNav({
   className,
@@ -18,22 +20,22 @@ export function MainNav({
        Dashboard
       </Link>
       <Link
-        href="/investments"
+        href="/dashboard/budgets"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Investments
+        Budgets (Coming Soon)
       </Link>
       <Link 
-        href="/expenses"
+        href="#"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Expenses
+        Transactions (Coming Soon) 
       </Link>
       <Link
-        href="/planner"
+        href="/#"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Planner
+        Planner (Coming Soon)
       </Link>
     </nav>
   )

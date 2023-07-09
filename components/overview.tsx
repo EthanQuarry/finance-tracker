@@ -1,62 +1,58 @@
-"use client"
+ "use client"
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
-// q: what is import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
-// q: how do i install recharts?
+import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import React from 'react';
+import { Value } from "@radix-ui/react-select";
 
 
+
+interface OverviewProps {
+  monthlyProfit: number | null | undefined,
+  monthlyExpenses: number | null | undefined,
+}
+
+export function Overview({ monthlyProfit, monthlyExpenses}: OverviewProps) {
+
+const currentDate = new Date();
 const data = [
   {
-    name: "Jan",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 5, 1).toLocaleString('default', { month: 'short' }),
+    Income: Math.floor(Math.random() * 5000) + 1000,
+    Expenses: Math.floor(Math.random() * 5000) + 500
   },
   {
-    name: "Feb",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 4, 1).toLocaleString('default', { month: 'short' }),
+    Income: Math.floor(Math.random() * 5000) + 1000,
+    Expenses: Math.floor(Math.random() * 5000) + 500
   },
   {
-    name: "Mar",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1).toLocaleString('default', { month: 'short' }),
+    Income: Math.floor(Math.random() * 5000) + 1000,
+    Expenses: Math.floor(Math.random() * 5000) + 500
   },
   {
-    name: "Apr",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, 1).toLocaleString('default', { month: 'short' }),
+    Income: Math.floor(Math.random() * 5000) + 1000,
+    Expenses: Math.floor(Math.random() * 5000) + 500
   },
   {
-    name: "May",
-    total: Math.floor(Math.random() * 5000) + 1000,
+    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1).toLocaleString('default', { month: 'short' }),
+    Income: Math.floor(Math.random() * 5000) + 1000,
+    Expenses: Math.floor(Math.random() * 5000) + 500
   },
   {
-    name: "Jun",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jul",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Aug",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Sep",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Dec",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
+    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 0, 1).toLocaleString('default', { month: 'short' }),
+    Income: monthlyProfit,
+    Expenses: monthlyExpenses
+  }
 ]
 
-export function Overview() {
+
+
+
+
+  
+  
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
@@ -74,8 +70,12 @@ export function Overview() {
           axisLine={false}
           tickFormatter={(value) => `$${value}`}
         />
-        <Bar dataKey="total" fill="#adfa1d" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="Income" fill="#adfa1d" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="Expenses" fill="#272e3f" radius={[4, 4, 0, 0]} />
+        <Tooltip cursor={false} />
+        <Legend verticalAlign="top" height={36} />
       </BarChart>
+      
     </ResponsiveContainer>
   )
 }
