@@ -2,8 +2,6 @@ import { Metadata } from "next"
 
 import { cookies } from "next/headers";
 import { Activity, CreditCard, DollarSign, Download, Users } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -18,11 +16,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { CalendarDateRangePicker } from "@/components/dateRangePicker"
-import { MainNav } from "@/components/mainNav"
 import { Overview } from "@/components/overview"
-import { RecentSales } from "@/components/recentSales"
-import { Search } from "@/components/search"
-import { UserNav } from "@/components/userNav"
 import { getIdFromCookie } from "@/lib/auth"
 import { db } from "@/lib/db";
 import DashboardPie from "@/components/dashboard-pie";

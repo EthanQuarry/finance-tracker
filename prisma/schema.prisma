@@ -8,7 +8,7 @@ datasource db {
 }
 
 // Schema Prisma 
-model admin {
+model Admin {
   id        String     @id @default(uuid())
   firstName String  @default("admin")
   lastName  String?
@@ -18,7 +18,7 @@ model admin {
   isAdmin   Boolean  @default(true)
 }
 
-model user {
+model User {
   id        String      @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -28,26 +28,53 @@ model user {
   lastName  String
   password  String
   isAdmin   Boolean @default(false)
+
+  category  Category[]
+  unique    Unique[]
 }
 
-model financials {
-  id        String      @id 
+model Category {
+  id        String      @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  monthlySaving Int
-  monthlyProfit Int
-  rent Int
-  utilities Int
-  
-  food Int
-  subscriptions Int
-  transportation Int
-  entertainment Int
-  
-  funExpenses Int
-  investmentExpenses Int
-  memberships Int
-  miscellaneous Int
+  name      String
+  user      User @relation(fields: [userId], references: [id])
+  userId    String
+  unique    Unique[]
+
+  assigned Int @default(0)
+  activity Int @default(0)
+  available Int @default(0)
+
+   note     String?
+
+  deleted Boolean @ default(false)
+
+  @@unique([userId, name])
+  @@index([userId, id])
 }
 
+
+model Unique {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name   String
+
+  userId   String
+  owner     User    @relation(fields: [userId], references: [id] , onDelete: NoAction, onUpdate: NoAction)
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id] )
+
+  assigned Int @default(0)
+  activity Int @default(0)
+  available Int @default(0)
+  
+  note     String?
+
+  deleted Boolean   @default(false)
+
+  @@index([userId])
+}
