@@ -28,16 +28,16 @@ export const metadata: Metadata = {
 
 
 
-const getData = async () => {
-  const id = await getIdFromCookie(cookies())
-  const financials = await db.financials.findUnique({
-    where: {
-      id: id
-    }
-  })
+// const getData = async () => {
+//   const id = await getIdFromCookie(cookies())
+//   const financials = await db.financials.findUnique({
+//     where: {
+//       id: id
+//     }
+//   })
 
-  return financials
-}
+//   return financials
+// }
 
 type DashboardPageProps = {
   monthlySaving: number | null
@@ -60,24 +60,24 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
   const percentMonthlyRevenue = "+124.4%";
   const percentMonthlyExpenses = "-114.0%";
 
-  const {
-    monthlySaving,
-    monthlyProfit,
-    rent, utilities,
-    food,
-    subscriptions,
-    transportation,
-    entertainment,
-    funExpenses,
-    investmentExpenses,
-    memberships,
-    miscellaneous
-  } = await getData() || {};
+  // const {
+  //   monthlySaving,
+  //   monthlyProfit,
+  //   rent, utilities,
+  //   food,
+  //   subscriptions,
+  //   transportation,
+  //   entertainment,
+  //   funExpenses,
+  //   investmentExpenses,
+  //   memberships,
+  //   miscellaneous
+  // } = await getData() || {};
 
 
 
-  const monthlyExpenses = rent + utilities + food + subscriptions + transportation + entertainment + funExpenses + investmentExpenses + memberships + miscellaneous
-  const monthlyActualProfit = monthlyProfit - monthlyExpenses;
+  // const monthlyExpenses = rent + utilities + food + subscriptions + transportation + entertainment + funExpenses + investmentExpenses + memberships + miscellaneous
+  // const monthlyActualProfit = monthlyProfit - monthlyExpenses;
   return (
     <>
         <div className="flex-1 space-y-4 p-8 pt-6">
@@ -115,7 +115,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
 
 
 
-                      className="text-2xl font-bold">{monthlyProfit}€ </div>
+                      className="text-2xl font-bold">NaN€ </div>
                     <p className="text-xs text-muted-foreground">
                       {/* {`${percentMonthlyRevenue} from last month`} */}
                     </p>
@@ -129,7 +129,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{monthlyExpenses}€ </div>
+                    <div className="text-2xl font-bold">NaN€ </div>
                     <p className="text-xs text-muted-foreground">
                       {/* {`${percentMonthlyExpenses} from last month`} */}
                     </p>
@@ -141,7 +141,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                     <CreditCard className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{monthlySaving}€ </div>
+                    <div className="text-2xl font-bold">NaN€ </div>
                     {/* <p className="text-xs text-muted-foreground">
                       +19% from last month
                     </p> */}
@@ -155,7 +155,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                     <Activity className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{monthlyActualProfit}€ </div>
+                    <div className="text-2xl font-bold">NaN€ </div>
                     {/* <p className="text-xs text-muted-foreground">
                       +201 since last hour
                     </p> */}
@@ -168,7 +168,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <Overview monthlyProfit={monthlyProfit} monthlyExpenses={monthlyExpenses} />
+                    {/* <Overview monthlyProfit={monthlyProfit} monthlyExpenses={monthlyExpenses} /> */}
                   </CardContent>
                 </Card>
                   <DashboardPie />

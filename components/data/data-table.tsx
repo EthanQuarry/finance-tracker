@@ -25,17 +25,21 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { DataTablePagination } from "@/components/data/data-table-pagination"
+
 import { DataTableToolbar } from "@/components/data/data-table-toolbar"
+import { useState } from "react"
+import { Card } from "../ui/card"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  setSelectedRow: (arg0: TValue) => void
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  setSelectedRow
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -68,13 +72,14 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="space-y-4 col-span-2">
+      <>
+          <div className="space-y-4 col-span-2">
       <DataTableToolbar table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} >
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -95,7 +100,6 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -120,8 +124,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {/* <DataTablePagination table={table} />   Thing at the bottom that is used to determine how many results   */}
-      
     </div>
+      </>
   )
 }
+
