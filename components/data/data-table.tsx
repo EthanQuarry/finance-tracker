@@ -28,20 +28,18 @@ import {
 
 import { DataTableToolbar } from "@/components/data/data-table-toolbar"
 import { useState } from "react"
-import { Card } from "../ui/card"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  setSelectedRow: (arg0: TValue) => void
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  setSelectedRow
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
+  const [selectedRow, setSelectedRow] = useState(null);
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -72,8 +70,7 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-      <>
-          <div className="space-y-4 col-span-2">
+    <div className="space-y-4 col-span-2">
       <DataTableToolbar table={table} />
       <div className="rounded-md border">
         <Table>
@@ -125,7 +122,5 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
     </div>
-      </>
   )
 }
-

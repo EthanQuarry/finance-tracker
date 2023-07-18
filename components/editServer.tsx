@@ -1,6 +1,5 @@
-"use client"
-
 import * as React from "react"
+import EditClient from "./editClient"
 
 type EditProps = {
     selectedRow: {
@@ -12,10 +11,10 @@ type EditProps = {
     }
 }
 
-export default function Edit({ selectedRow }: EditProps) {
+export default function EditServer({ selectedRow }: EditProps) {
     return (
         <div className="flex flex-col space-y-4">
-            <div>{selectedRow.name}</div>
+            <EditClient selectedRow={selectedRow} />
         </div>
     )
 }

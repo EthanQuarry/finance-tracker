@@ -23,7 +23,16 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => {
+          row.toggleSelected(!!value);
+          if (value) {
+            setSelectedRow({...selectedRow, 
+            name: row.getValue("name"),
+            assigned: row.getValue("assigned"),
+            activity: row.getValue("activity"),
+            })
+          }
+        }}
         aria-label="Select row"
         className="translate-y-[2px]"
       />

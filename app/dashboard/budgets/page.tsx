@@ -7,7 +7,7 @@ import { cookies } from "next/headers"
 import { data } from "autoprefixer"
 import { useState } from "react"
 import Container from "@/components/container"
-import Edit from "@/components/edit"
+import Edit from "@/components/editServer"
 
 export const metadata: Metadata = {
   title: "Budgets",
@@ -54,7 +54,7 @@ export default async function BudgetsPage() {
             (Area for something)
           </div>
         </div>
-        <Container data={data} columns={columns} />
+        <Container data={data} />
       </div>
     </>
   )

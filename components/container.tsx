@@ -1,27 +1,46 @@
 "use client"
 
 import * as React from "react"
-import { cn } from "@/lib/utils";
-import { useState } from "react";
+import {useState } from "react";
 import { DataTable } from "./data/data-table";
+import EditServer from "./editServer";
+import BudgetsTable from "./budgetsTable";
 
-type ContainerProps = {
-  data: any
-  columns: any
+type RowDataProps = {
+  name: string 
+  assigned: number 
+  activity: number 
+  available: number
+  note: string
 }
 
-const Container = ({  data, columns }: ContainerProps) => {
-  const [selectedRow, setSelectedRow] = useState({
-    name: '',
-    assigned: 0,
-    activity: 0,
-    available: 0,
-    note: ''
-  });
+const INITIAL_DATA = {
+  name: '',
+  assigned: 0,
+  activity: 0,
+  available: 0,
+  note: ''
+}
+
+type DataProps = {
+  data: []
+}
+
+const Container = ({data}: DataProps) => { 
+  const [ selectedRow, setSelectedRow] = useState(INITIAL_DATA);
+
+  const handleChange = (fields: RowDataProps) => {
+    setSelectedRow(prev => ({
+      ...prev,
+      ...fields
+    }))
+  }
+  
   return (
     <>
-      <DataTable columns={columns} data={data} setSelectedRow={setSelectedRow} />
-
+      <BudgetsTable data={data} setSelectedRow={setSelectedRow}  />
+      <EditServer selectedRow={selectedRow}  />
+      
     </>
   )
 }
