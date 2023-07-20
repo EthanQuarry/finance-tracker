@@ -45,3 +45,17 @@ CREATE TABLE [dbo].[Unique] (
 
 CREATE INDEX [IX_Unique_userId] ON [dbo].[Unique] ([userId]);
 
+CREATE TABLE [dbo].[Target] (
+    [id]              NVARCHAR(255) NOT NULL PRIMARY KEY DEFAULT NEWID(),
+    [createdAt]       DATETIME2     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    [updatedAt]       DATETIME2     NOT NULL,
+    [uniqueId]        NVARCHAR(255) NOT NULL,
+    [spending]        BIT           NOT NULL DEFAULT 0,
+    [saving]          BIT           NOT NULL DEFAULT 0,
+    [debt]            BIT           NOT NULL DEFAULT 0,
+    [requiredAmount]  INT           NOT NULL,
+    [dateRequired]    NVARCHAR(255) NOT NULL,
+    CONSTRAINT [FK_Target_Unique_uniqueId] FOREIGN KEY ([uniqueId]) REFERENCES [dbo].[Unique] ([id])
+);
+
+CREATE INDEX [IX_Target_uniqueId] ON [dbo].[Target] ([uniqueId]);

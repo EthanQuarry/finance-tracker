@@ -1,15 +1,13 @@
 "use client"
 
-import { SetStateAction } from "react";
+import { data } from "autoprefixer";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
+import { SetStateAction } from "react";
 
 type RowDataProps = {
     setSelectedRow: React.Dispatch<React.SetStateAction<{}>>
-}
-
-type BudgetProps = RowDataProps & {
-    data: [{
-        id: string
+    setSelectedUnique: React.Dispatch<React.SetStateAction<{}>>
+    selectedRow: {
         name: string
         assigned: number | undefined
         activity: number | undefined
@@ -26,17 +24,20 @@ type BudgetProps = RowDataProps & {
 
             }
         ]
-    }]
+    }
+
 }
 
-export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
-    const dataExists = data === undefined;
 
 
+export default function UniqueClient({ setSelectedUnique, setSelectedRow, selectedRow }: RowDataProps) {
+    const none = selectedRow.unique.length < 1;
+    const uniqueData = selectedRow.unique;
     const handleRowClick = (row: SetStateAction<{}>) => {
-        setSelectedRow(row);
+        setSelectedUnique(row);
         console.log(row)
     }
+    
     return (
         <>
             <div className="space-y-4 col-span-2">
@@ -50,8 +51,8 @@ export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
                             <TableCell>Note</TableCell>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
-                        {dataExists ? data.map((item) => (
+                    {none ? <div>Add Category</div> : <TableBody>
+                        {uniqueData.map((item) => (
                             <TableRow key={item.id} onClick={() => handleRowClick(item)}>
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>€{item.assigned}</TableCell>
@@ -60,20 +61,11 @@ export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
                                 <TableCell>{item.note}</TableCell>
 
                             </TableRow>
-                        )) :
-                         <TableRow>
-                            <TableCell>None</TableCell>    
-                            <TableCell>-</TableCell>    
-                            <TableCell>-</TableCell>    
-                            <TableCell>-</TableCell>    
-                            <TableCell>-</TableCell>    
-                            
-                        </TableRow>}
-                    </TableBody>
+                        ))}
+                    </TableBody>}
 
                 </Table>
             </div>
         </>
-
     )
 }

@@ -67,6 +67,8 @@ model Unique {
   owner     User    @relation(fields: [userId], references: [id] , onDelete: NoAction, onUpdate: NoAction)
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id] )
+  target Target[]
+
 
   assigned Int @default(0)
   activity Int @default(0)
@@ -78,3 +80,21 @@ model Unique {
 
   @@index([userId])
 }
+
+
+model Target {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  uniqueId String
+  name Unique @relation(fields: [uniqueId], references: [id])
+
+  spending Boolean @default(false)
+  saving Boolean @default(false)
+  debt Boolean @default(false)
+
+  requiredAmount Int
+  dateRequired String
+}
+
