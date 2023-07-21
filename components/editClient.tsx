@@ -69,7 +69,14 @@ type categoryData = {
     note: string
 }
 
-
+type uniqueData = {
+    userId: string
+    name: string
+    assigned: number | null
+    available: number | null
+    note: string
+    categoryId: string
+}
 
 export default function EditClient({ userId, selectedRow, selectedUnique, data }: EditProps) {
     const [isLoading, setIsLoading] =useState(false);
@@ -106,7 +113,7 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
 
     }
 
-    const [ uniqueData, setUniqueData] = useState({
+    const [ uniqueData, setUniqueData] = useState<uniqueData>({
         userId: userId,
         name: "",
         assigned: null,
@@ -125,7 +132,7 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(categoryData),
+              body: JSON.stringify(uniqueData),
             })
 
             if (response.status === 200) {
@@ -143,7 +150,7 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
         <>
             <Card>
                 <CardHeader>
-                    {selectedUnique.name}
+               
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col space-y-4">
@@ -226,13 +233,14 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
                                className='lg:cols-span-1 '
                                placeholder="Name"
                                type="text"
-                               value={categoryData.name}
-                               onChange={(e) => setCategoryData({
+                               value={uniqueData.name}
+                               onChange={(e) => setUniqueData({
                                    userId: userId,
                                    name: e.target.value,
-                                   assigned: categoryData.assigned,
-                                   available: categoryData.available,
-                                   note: categoryData.note
+                                   assigned: uniqueData.assigned,
+                                   available: uniqueData.available,
+                                   note: uniqueData.note,
+                                   categoryId: selectedRow.id
                                }) }
                            />
 
@@ -241,12 +249,13 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
                                placeholder="Amount assigned"
                                type="number"
                                value={categoryData.assigned?.toString()}
-                               onChange={(e) => setCategoryData({
+                               onChange={(e) => setUniqueData({
                                    userId: userId,
-                                   name: categoryData.name,
+                                   name: uniqueData.name,
                                    assigned: parseInt(e.target.value),
-                                   available: categoryData.available,
-                                   note: categoryData.note
+                                   available: uniqueData.available,
+                                   note: uniqueData.note,
+                                   categoryId: selectedRow.id
                                })}
                            />
 
@@ -257,36 +266,38 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
                                className='lg:cols-span-1 '
                                placeholder="Available"
                                type="number"
-                               value={categoryData.available?.toString()}
-                               onChange={(e) => setCategoryData({
+                               value={uniqueData.available?.toString()}
+                               onChange={(e) => setUniqueData({
                                    userId: userId,
-                                   name: categoryData.name,
-                                   assigned: categoryData.assigned,
+                                   name: uniqueData.name,
+                                   assigned: uniqueData.assigned,
                                    available: parseInt(e.target.value),
-                                   note: categoryData.note
+                                   note: uniqueData.note,
+                                   categoryId: selectedRow.id
                                })}
                            />
                            <Input
                                className='lg:cols-span-1'
                                placeholder="Little Note"
                                type='text'
-                               value={categoryData.note}
-                               onChange={(e) => setCategoryData({
+                               value={uniqueData.note}
+                               onChange={(e) => setUniqueData({
                                    userId: userId,
-                                   name: categoryData.name,
-                                   assigned: categoryData.assigned,
-                                   available: categoryData.available,
-                                   note: e.target.value
+                                   name: uniqueData.name,
+                                   assigned: uniqueData.assigned,
+                                   available: uniqueData.available,
+                                   note: e.target.value,
+                                   categoryId: selectedRow.id
 
                                })}
                            />
 
                        </div>
-                       <Button  onClick={createCatagory} disabled={isLoading}>
+                       <Button  onClick={createUnique} disabled={isLoading}>
                            {isLoading && (
                                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                            )}
-                           Add Category
+                           Add Sub-Category
                        </Button>
                    </>
                         }

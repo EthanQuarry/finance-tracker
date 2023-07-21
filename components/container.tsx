@@ -84,7 +84,7 @@ const Container = ({ userId, data }: Props) => {
   const [selectedUnique, setSelectedUnique] = useState(UNIQUE_DATA);
   
   const uniqueLength: number = selectedRow.unique.length;
-  const uniqueName: string = selectedRow.name;
+  const categoryName: string = selectedRow.name
 
   return (
     <>
@@ -102,16 +102,20 @@ const Container = ({ userId, data }: Props) => {
         </Card>
       </div>
       <div className="grid gap-4 lg:grid-cols-1 ">
-        <Card>
-          <CardHeader>
-            <CardTitle>
-            {uniqueLength === 0 && uniqueName}{uniqueLength > 1 && `${uniqueLength} Selected Expenses`}{selectedRow.name == '' && 'No Sub-Catagories'} 
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <UniqueClient userId={userId} setSelectedUnique={setSelectedUnique} selectedRow={selectedRow} setSelectedRow={setSelectedRow} ></UniqueClient>
-          </CardContent>
-        </Card>
+       {selectedRow.name === 'Add Category' ? 
+       null 
+       :
+       <Card>
+       <CardHeader>
+         <CardTitle>
+         {uniqueLength === 0 && `You haven't selected a Category`}{uniqueLength === 1 && categoryName}{uniqueLength > 1 && `${uniqueLength} Selected Expenses of ${categoryName}`}{selectedRow.name == '' && 'No Sub-Catagories'} 
+         </CardTitle>
+       </CardHeader>
+       <CardContent>
+         <UniqueClient userId={userId} setSelectedUnique={setSelectedUnique} selectedRow={selectedRow} setSelectedRow={setSelectedRow} ></UniqueClient>
+       </CardContent>
+     </Card>
+       } 
       </div>
     </>
 

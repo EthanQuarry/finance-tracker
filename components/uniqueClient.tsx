@@ -74,7 +74,19 @@ export default function UniqueClient({ userId, setSelectedUnique, setSelectedRow
                             <TableCell>Note</TableCell>
                         </TableRow>
                     </TableHeader>
-                    {none ? <div>Add Category</div> : <TableBody>
+                    {none ? 
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>-</TableCell>
+                                <TableCell>-</TableCell>
+                                <TableCell>-</TableCell>
+                                <TableCell>-</TableCell>
+                                <TableCell>-</TableCell>
+
+                            </TableRow>
+                      
+                    </TableBody>
+                     : <TableBody>    
                         {uniqueData.map((item) => (
                             <TableRow key={item.id} onClick={() => handleRowClick(item)}>
                                 <TableCell>{item.name}</TableCell>
