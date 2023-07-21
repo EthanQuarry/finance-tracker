@@ -59,3 +59,13 @@ CREATE TABLE [dbo].[Target] (
 );
 
 CREATE INDEX [IX_Target_uniqueId] ON [dbo].[Target] ([uniqueId]);
+
+
+CREATE TABLE [Income] (
+    [id] NVARCHAR(255) PRIMARY KEY DEFAULT NEWID(),
+    [createdAt] DATETIME DEFAULT GETDATE(),
+    [updatedAt] DATETIME,
+    [userId] NVARCHAR(255) UNIQUE,
+    [amount] INT
+    CONSTRAINT [FK_Income_User_userId] FOREIGN KEY ([userId]) REFERENCES [dbo].[User] ([id])
+);

@@ -8,6 +8,7 @@ import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { set } from "date-fns";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -36,6 +37,7 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
         body: JSON.stringify(formData),
       })
       if ( response.status === 200) {
+        setIsLoading(false)
         const data = await response.json()
         const id = data.user.id       
         router.push(`/dashboard/budgets`)

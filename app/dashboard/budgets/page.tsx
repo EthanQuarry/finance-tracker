@@ -7,22 +7,20 @@ import { cookies } from "next/headers"
 import { data } from "autoprefixer"
 import { useState } from "react"
 import Container from "@/components/container"
-import Edit from "@/components/editServer"
+
 
 export const metadata: Metadata = {
   title: "Budgets",
   description: "A task and issue tracker build using Tanstack Table.",
 }
-
-// Simulate a database read for tasks.
 const getData = async () => {
-  const id = await getIdFromCookie(cookies());
+  const userId = await getIdFromCookie(cookies());
   const response = await fetch('http://localhost:3000/api/user/categories/get', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ id: id }),
+    body: JSON.stringify({ userId: userId }),
   })
   if (!response.ok) {
     { { 'Something went wrong' } }
@@ -32,11 +30,55 @@ const getData = async () => {
   }
 }
 
+const postIncome = async (amount: number) => {
+  const userId = await getIdFromCookie(cookies());
+  const response = await fetch('http://localhost:3000/api/user/income/post', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId: userId, income: amount }),
+  })
+}
+
+const getIncome = async () => {
+  const userId = await getIdFromCookie(cookies());
+  const response = await fetch('http://localhost:3000/api/user/income/get', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId: userId }),
+  })
+  if (!response.ok) {
+    { { 'Something went wrong' } }
+  } else {
+    const data = await response.json();
+    return data
+  }
+}
+
+const incomeExist = async () => {
+  const response = await fetch('http://localhost:3000/api/user/income/get', {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+
+
+
+
+
+
+    
+  })
+}
+
 export default async function BudgetsPage() {
-
-  
+  const userId = await getIdFromCookie(cookies());
   const data = await getData()
-
+  
 
   return (
     <>
@@ -50,11 +92,12 @@ export default async function BudgetsPage() {
           </div>
           <div className="flex items-center space-x-2">
             <Card>
-              <CardHeader>2500 monthly Income</CardHeader>
+              <CardHeader></CardHeader>
+              <CardDescription></CardDescription>
             </Card>
           </div>
         </div>
-        <Container data={data} />
+        <Container data={data} userId={userId} />
       </div>
     </>
   )

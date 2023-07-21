@@ -1,27 +1,41 @@
 "use client"
 
-import { SetStateAction } from "react";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
 
 type RowDataProps = {
-    setSelectedRow: React.Dispatch<React.SetStateAction<{}>>
+    setSelectedRow: React.Dispatch<React.SetStateAction<{
+        id: string;
+        name: string;
+        assigned: number | null;
+        activity: number | null;
+        available: number | null;
+        note: string;
+        unique: {
+            id: string;
+            name: string;
+            assigned: number | null;
+            activity: number | null;
+            available: number | null;
+            note: string;
+        }[];
+    }>>
 }
 
 type BudgetProps = RowDataProps & {
     data: [{
         id: string
         name: string
-        assigned: number | undefined
-        activity: number | undefined
-        available: number | undefined
+        assigned: number | null
+        activity: number | null
+        available: number | null
         note: string
         unique: [
             {
                 id: string;
                 name: string;
-                assigned: number;
-                activity: number;
-                available: number;
+                assigned: number | null;
+                activity: number | null;
+                available: number | null;
                 note: string;
 
             }
@@ -29,12 +43,38 @@ type BudgetProps = RowDataProps & {
     }]
 }
 
+type RowProps  = {
+        id: string;
+        name: string;
+        assigned: number | null;
+        activity: number | null;
+        available: number | null;
+        note: string;
+        unique: {
+            id: string;
+            name: string;
+            assigned: number | null;
+            activity: number | null;
+            available: number | null;
+            note: string;
+        }[];
+}
+
 export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
-    const dataExists = data === undefined;
+    const dataExists = !data === undefined;
+    const unSelected = {
+        id: '',
+        name: 'Add Category',
+        assigned: null,
+        activity: null,
+        available: null,
+        note: '',
+        unique: []
+    }
 
 
-    const handleRowClick = (row: SetStateAction<{}>) => {
-        setSelectedRow(row);
+    const handleRowToggle = (row: RowProps) => {
+    setSelectedRow((prevRow) => (prevRow.id === row.id ? unSelected : row));
         console.log(row)
     }
     return (
@@ -51,8 +91,8 @@ export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {dataExists ? data.map((item) => (
-                            <TableRow key={item.id} onClick={() => handleRowClick(item)}>
+                        {!dataExists ? data.map((item) => (
+                            <TableRow key={item.id} onClick={() => handleRowToggle(item)}>
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>€{item.assigned}</TableCell>
                                 <TableCell>€{item.activity}</TableCell>
