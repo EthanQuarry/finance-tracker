@@ -1,3 +1,4 @@
+import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Metadata } from "next"
 import { columns } from "@/components/columns"
 import { DataTable } from "@/components/data/data-table"
@@ -7,6 +8,8 @@ import { cookies } from "next/headers"
 import { data } from "autoprefixer"
 import { useState } from "react"
 import Container from "@/components/container"
+import IncomeClient from "@/components/incomeClient"
+import ReactDOM from 'react-dom'
 
 
 export const metadata: Metadata = {
@@ -37,47 +40,45 @@ const postIncome = async (amount: number) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId: userId, income: amount }),
+    body: JSON.stringify({ userId: userId, amount: amount }),
   })
 }
 
-const getIncome = async () => {
+const IncomeExist = async () => {
   const userId = await getIdFromCookie(cookies());
   const response = await fetch('http://localhost:3000/api/user/income/get', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ userId: userId }),
-  })
-  if (!response.ok) {
-    { { 'Something went wrong' } }
-  } else {
-    const data = await response.json();
-    return data
-  }
-}
-
-const incomeExist = async () => {
-  const response = await fetch('http://localhost:3000/api/user/income/get', {
-    method: 'GET',
-    headers: {
       "Content-Type": "application/json",
     },
-
-
-
-
-
-
-
-    
+    body: JSON.stringify({userId: userId}),
   })
+  const income = await response.json();
+  if (response.status === 200) {
+
+    return (
+      <Card>
+      <CardHeader>€0</CardHeader>
+      <CardDescription>You haven't assigned Income yet</CardDescription>
+      </Card>
+    )
+  } else {
+    const lcid = 'en-EU' // or return it from your i18n current locale
+    const numberFormatters = useNumberFormatters(lcid)
+    
+    return (
+      <Card >
+      <CardHeader>{numberFormatters.currency('EUR').format(income.amount)} Monthly Income</CardHeader>
+      <CardContent><CardDescription>Ready to Assign</CardDescription></CardContent>
+      </Card>
+    )
+  }
+
 }
 
 export default async function BudgetsPage() {
   const userId = await getIdFromCookie(cookies());
-  const data = await getData()
+  const data = await getData();
   
 
   return (
@@ -91,10 +92,7 @@ export default async function BudgetsPage() {
             </p>
           </div>
           <div className="flex items-center space-x-2">
-            <Card>
-              <CardHeader></CardHeader>
-              <CardDescription></CardDescription>
-            </Card>
+            <IncomeExist />
           </div>
         </div>
         <Container data={data} userId={userId} />

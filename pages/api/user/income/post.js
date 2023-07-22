@@ -4,14 +4,18 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         const income = await db.income.create({
             data: {
-                userId: req.body.userId,
                 amount: req.body.amount,
+                user: {
+                    connect: {
+                        id: req.body.userId
+                    }
+                }
             }
         })
 
-        if (!income.ok) {
+        if (income.ok) {
             return res.status(500).json({ message: 'Error' })
-        } else return res.status(200).json(income.amount)
+        } else return res.status(200).json({message: 'Successfully Added Income'})
         
-    }
+    } else return res.status(401).json({ message: 'wrong api method' })
 }
