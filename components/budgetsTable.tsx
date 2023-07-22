@@ -4,6 +4,22 @@ import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
 
 type RowDataProps = {
+    selectedRow: {
+        id: string;
+        name: string;
+        assigned: number | null;
+        activity: number | null;
+        available: number | null;
+        note: string;
+        unique: {
+            id: string;
+            name: string;
+            assigned: number | null;
+            activity: number | null;
+            available: number | null;
+            note: string;
+        }[];
+    }
     setSelectedRow: React.Dispatch<React.SetStateAction<{
         id: string;
         name: string;
@@ -44,25 +60,25 @@ type BudgetProps = RowDataProps & {
     }]
 }
 
-type RowProps  = {
+type RowProps = {
+    id: string;
+    name: string;
+    assigned: number | null;
+    activity: number | null;
+    available: number | null;
+    note: string;
+    unique: {
         id: string;
         name: string;
         assigned: number | null;
         activity: number | null;
         available: number | null;
         note: string;
-        unique: {
-            id: string;
-            name: string;
-            assigned: number | null;
-            activity: number | null;
-            available: number | null;
-            note: string;
-        }[];
+    }[];
 }
 
 export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
-    const dataExists = !data === undefined;
+const dataExists = data.length < 1;
     const unSelected = {
         id: '',
         name: 'Add Category',
@@ -75,7 +91,7 @@ export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
 
 
     const handleRowToggle = (row: RowProps) => {
-    setSelectedRow((prevRow) => (prevRow.id === row.id ? unSelected : row));
+        setSelectedRow((prevRow) => (prevRow.id === row.id ? unSelected : row));
         console.log(row)
     }
 
@@ -105,14 +121,14 @@ export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
 
                             </TableRow>
                         )) :
-                         <TableRow>
-                            <TableCell>None</TableCell>    
-                            <TableCell>-</TableCell>    
-                            <TableCell>-</TableCell>    
-                            <TableCell>-</TableCell>    
-                            <TableCell>-</TableCell>    
-                           
-                        </TableRow>}
+                            <TableRow >
+                                <TableCell>Create</TableCell>
+                                <TableCell>Category</TableCell>
+                                <TableCell>For</TableCell>
+                                <TableCell>Tracking</TableCell>
+                                <TableCell>Expenses</TableCell>
+
+                            </TableRow>}
                     </TableBody>
 
                 </Table>

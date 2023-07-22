@@ -94,7 +94,7 @@ const Container = ({ userId, data }: Props) => {
         </Card>
         <Card className="md:col-span-1 lg:col-span-1">
           <CardHeader>
-            <CardTitle>{selectedRow.name === 'Add Category' ? selectedRow.name : `Add Sub-Category to ${selectedRow.name}`}</CardTitle>
+            <CardTitle>{selectedRow.name === '' ? 'Create Catagory' : `Add Sub-Category to ${selectedRow.name}`}</CardTitle>
           </CardHeader>
           <CardContent>
             <EditClient userId={userId} selectedRow={selectedRow} selectedUnique={selectedUnique} data={data}/>
@@ -108,7 +108,7 @@ const Container = ({ userId, data }: Props) => {
        <Card>
        <CardHeader>
          <CardTitle>
-         {uniqueLength === 0 && `You haven't created a Sub-Category`}{uniqueLength === 1 && categoryName}{uniqueLength > 1 && `${uniqueLength} Selected Expenses of ${categoryName}`}{selectedRow.name == '' && 'No Sub-Catagories'} 
+         {uniqueLength === 0 && `You haven't created a Category`}{uniqueLength === 1 && categoryName}{uniqueLength > 1 && `${uniqueLength} Selected Expenses of ${categoryName}`}{selectedRow.name == '' && 'No Sub-Catagories'} 
          </CardTitle>
        </CardHeader>
        <CardContent>

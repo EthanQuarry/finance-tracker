@@ -150,7 +150,7 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
         <>
           
                     <div className="flex flex-col space-y-4">
-                        {selectedRow.name === 'Add Category' ? 
+                        {selectedRow.name === '' ? 
                             <>
                                 <div className='gruserId lg:gruserId-cols-2'>
 
