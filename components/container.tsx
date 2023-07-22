@@ -108,7 +108,7 @@ const Container = ({ userId, data }: Props) => {
        <Card>
        <CardHeader>
          <CardTitle>
-         {uniqueLength === 0 && `You haven't selected a Category`}{uniqueLength === 1 && categoryName}{uniqueLength > 1 && `${uniqueLength} Selected Expenses of ${categoryName}`}{selectedRow.name == '' && 'No Sub-Catagories'} 
+         {uniqueLength === 0 && `You haven't created a Sub-Category`}{uniqueLength === 1 && categoryName}{uniqueLength > 1 && `${uniqueLength} Selected Expenses of ${categoryName}`}{selectedRow.name == '' && 'No Sub-Catagories'} 
          </CardTitle>
        </CardHeader>
        <CardContent>

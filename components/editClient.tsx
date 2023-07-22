@@ -148,11 +148,7 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
     
     return (
         <>
-            <Card>
-                <CardHeader>
-               
-                </CardHeader>
-                <CardContent>
+          
                     <div className="flex flex-col space-y-4">
                         {selectedRow.name === 'Add Category' ? 
                             <>
@@ -302,8 +298,6 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
                    </>
                         }
                     </div>
-                </CardContent>
-            </Card>
         </>
     )
 }
