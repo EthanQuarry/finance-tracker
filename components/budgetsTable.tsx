@@ -1,5 +1,6 @@
 "use client"
 
+import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
 
 type RowDataProps = {
@@ -77,6 +78,9 @@ export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
     setSelectedRow((prevRow) => (prevRow.id === row.id ? unSelected : row));
         console.log(row)
     }
+
+    const lcid = 'en-EU' // or return it from your i18n current locale
+    const numberFormatters = useNumberFormatters(lcid)
     return (
         <>
             <div className="space-y-4 col-span-2">
@@ -94,9 +98,9 @@ export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
                         {!dataExists ? data.map((item) => (
                             <TableRow key={item.id} onClick={() => handleRowToggle(item)}>
                                 <TableCell>{item.name}</TableCell>
-                                <TableCell>€{item.assigned}</TableCell>
-                                <TableCell>€{item.activity}</TableCell>
-                                <TableCell>€{item.available}</TableCell>
+                                <TableCell>{numberFormatters.currency('EUR').format(item.assigned)}</TableCell>
+                                <TableCell>{numberFormatters.currency('EUR').format(item.activity)}</TableCell>
+                                <TableCell>{numberFormatters.currency('EUR').format(item.available)}</TableCell>
                                 <TableCell>{item.note}</TableCell>
 
                             </TableRow>
@@ -107,7 +111,7 @@ export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
                             <TableCell>-</TableCell>    
                             <TableCell>-</TableCell>    
                             <TableCell>-</TableCell>    
-                            
+                           
                         </TableRow>}
                     </TableBody>
 

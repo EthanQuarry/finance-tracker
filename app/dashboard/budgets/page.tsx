@@ -33,17 +33,6 @@ const getData = async () => {
   }
 }
 
-const postIncome = async (amount: number) => {
-  const userId = await getIdFromCookie(cookies());
-  const response = await fetch('http://localhost:3000/api/user/income/post', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ userId: userId, amount: amount }),
-  })
-}
-
 const IncomeExist = async () => {
   const userId = await getIdFromCookie(cookies());
   const response = await fetch('http://localhost:3000/api/user/income/get', {
@@ -51,25 +40,29 @@ const IncomeExist = async () => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({userId: userId}),
+    body: JSON.stringify({ userId: userId }),
   })
   const income = await response.json();
   if (response.status === 200) {
 
     return (
-      <Card>
-      <CardHeader>€0</CardHeader>
-      <CardDescription>You haven't assigned Income yet</CardDescription>
+      <Card>  
+        <CardHeader>
+          Oh no! You don't have any money 🙀
+        </CardHeader>
+        <CardContent className='grid-cols-2'>
+        <IncomeClient userId={userId} />
+        </CardContent>
       </Card>
     )
   } else {
     const lcid = 'en-EU' // or return it from your i18n current locale
     const numberFormatters = useNumberFormatters(lcid)
-    
+
     return (
       <Card >
-      <CardHeader>{numberFormatters.currency('EUR').format(income.amount)} Monthly Income</CardHeader>
-      <CardContent><CardDescription>Ready to Assign</CardDescription></CardContent>
+        <CardHeader>{numberFormatters.currency('EUR').format(income.amount)} Monthly Income</CardHeader>
+        <CardContent><CardDescription>Ready to Assign 👍</CardDescription></CardContent>
       </Card>
     )
   }
@@ -79,7 +72,7 @@ const IncomeExist = async () => {
 export default async function BudgetsPage() {
   const userId = await getIdFromCookie(cookies());
   const data = await getData();
-  
+
 
   return (
     <>
