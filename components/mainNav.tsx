@@ -23,19 +23,13 @@ export function MainNav({
         href="/dashboard/budgets"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Budgets (Coming Soon)
+        Expenses
       </Link>
       <Link 
-        href="#"
+        href="/dashboard/income"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Transactions (Coming Soon) 
-      </Link>
-      <Link
-        href="/#"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        Planner (Coming Soon)
+        Income
       </Link>
     </nav>
   )
