@@ -11,13 +11,15 @@ import { Input } from "./ui/input";
 import { useState } from "react";
 
 type DataProps = {
-  amount: number | null
+  name: string
+  amount: number | null 
   userId: string
 }
 
 export default function IncomeClient({userId}: {userId: string}) {
 
   const [data, setData] = useState<DataProps>({
+    name: '',
     amount: null,
     userId: userId
   })
@@ -50,15 +52,27 @@ export default function IncomeClient({userId}: {userId: string}) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
         <DropdownMenuLabel className="font-normal">
+        <Input
+            type="text"
+            placeholder="Name e.g grandmother etc."
+            className="w-full"
+            onChange={(e) => setData({ 
+              name: e.target.value,
+              amount: data.amount,
+              userId: userId 
+            })}
+          />
           <Input
             type="number"
             placeholder="Monthly (After Tax)"
             className="w-full"
             onChange={(e) => setData({ 
+              name: data.name,
               amount: parseInt(e.target.value),
               userId: userId 
             })}
           />
+          
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
