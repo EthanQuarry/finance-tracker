@@ -47,11 +47,6 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
       console.error(error)
 
     }
-
-    setTimeout(() => {
-      setIsLoading(false)
-
-    }, 10000)
   }
 
   return (
