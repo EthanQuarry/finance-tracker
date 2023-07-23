@@ -4,6 +4,7 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         const income = await db.income.create({
             data: {
+                name: req.body.name,
                 amount: req.body.amount,
                 user: {
                     connect: {

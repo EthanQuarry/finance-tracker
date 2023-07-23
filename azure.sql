@@ -66,6 +66,8 @@ CREATE TABLE [Income] (
     [createdAt] DATETIME DEFAULT GETDATE(),
     [updatedAt] DATETIME,
     [userId] NVARCHAR(255) UNIQUE,
+    [name] NVARCHAR(255) NOT NULL,
+    [note]  NVARCHAR(MAX),
     [amount] INT
     CONSTRAINT [FK_Income_User_userId] FOREIGN KEY ([userId]) REFERENCES [dbo].[User] ([id])
 );

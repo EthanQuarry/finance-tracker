@@ -29,7 +29,7 @@ model User {
   password  String
   isAdmin   Boolean @default(false)
 
-  income    Income?
+  income    Income[]
   category  Category[]
   unique    Unique[]
 }
@@ -104,9 +104,12 @@ model Income {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  name      String
+
   user      User @relation(fields: [userId], references: [id])
   userId    String @unique
 
   amount    Int
+  note      String?
 
 }
