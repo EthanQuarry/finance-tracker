@@ -1,12 +1,11 @@
 import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Metadata } from "next"
-import { columns } from "@/components/columns"
-import { DataTable } from "@/components/data/data-table"
+
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { getIdFromCookie } from "@/lib/auth"
 import { cookies } from "next/headers"
-import { data } from "autoprefixer"
-import { useState } from "react"
+
 import Container from "@/components/container"
 import IncomeClient from "@/components/incomeClient"
 import ReactDOM from 'react-dom'
@@ -34,6 +33,8 @@ const getData = async () => {
 }
 
 const IncomeExist = async () => {
+  const lcid = 'en-EU' // or return it from your i18n current locale
+  const numberFormatters = useNumberFormatters(lcid)
   const userId = await getIdFromCookie(cookies());
   const response = await fetch('http://localhost:3000/api/user/income/get', {
     method: 'POST',
@@ -56,8 +57,7 @@ const IncomeExist = async () => {
       </Card>
     )
   } else {
-    const lcid = 'en-EU' // or return it from your i18n current locale
-    const numberFormatters = useNumberFormatters(lcid)
+
 
     return (
       <Card >

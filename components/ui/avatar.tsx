@@ -1,5 +1,5 @@
 "use client"
-
+import Image  from "next/image"
 import * as React from "react"
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
@@ -41,7 +41,7 @@ const AvatarFallback = React.forwardRef<
     "flex h-full w-full items-center justify-center rounded-full bg-muted",
     className
   )} >
-    <img alt="profile icon" src="https://freesvg.org/img/abstract-user-flat-1.png" height={60} width={60}></img>
+    <Image alt="profile icon" src="https://freesvg.org/img/abstract-user-flat-1.png" height={60} width={60}></Image>
   </AvatarPrimitive.Fallback>
 ))
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName

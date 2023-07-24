@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-
+import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { cookies } from "next/headers";
 import { Activity, CreditCard, DollarSign, Download, Users } from "lucide-react"
 import {
@@ -28,56 +28,44 @@ export const metadata: Metadata = {
 
 
 
-// const getData = async () => {
-//   const id = await getIdFromCookie(cookies())
-//   const financials = await db.financials.findUnique({
-//     where: {
-//       id: id
-//     }
-//   })
+const getIncome = async () => {
+  const id = await getIdFromCookie(cookies())
+  const income = await db.income.findMany({
+    where: {
+      userId: id
+    }
+  })
+  let total = 0;
+  income.map((income) => {
+    total += income.amount
+  })
+  return total
+}
 
-//   return financials
-// }
-
+const getExpenses = async () => {
+  const id = await getIdFromCookie(cookies())
+  const expenses = await db.category.findMany({
+    where: {
+      userId: id
+    }
+  })
+  let total = 0;
+  expenses.map((expense) => {
+    total += expense.assigned
+  })
+  return total
+}
 type DashboardPageProps = {
-  monthlySaving: number | null
-  monthlyProfit: number | null
-  rent: number | null
-  utilities: number | null
-  food: number | null
-  subscriptions: number | null
-  transportation: number | null
-  entertainment: number | null
-  funExpenses: number | null
-  investmentExpenses: number | null
-  memberships: number | null
-  miscellaneous: number | null
-  monthlyExpenses: number | null
+
 }
 
 
 const DashboardPage: React.FC<DashboardPageProps> = async () => {
-  const percentMonthlyRevenue = "+124.4%";
-  const percentMonthlyExpenses = "-114.0%";
-
-  // const {
-  //   monthlySaving,
-  //   monthlyProfit,
-  //   rent, utilities,
-  //   food,
-  //   subscriptions,
-  //   transportation,
-  //   entertainment,
-  //   funExpenses,
-  //   investmentExpenses,
-  //   memberships,
-  //   miscellaneous
-  // } = await getData() || {};
-
-
-
-  // const monthlyExpenses = rent + utilities + food + subscriptions + transportation + entertainment + funExpenses + investmentExpenses + memberships + miscellaneous
-  // const monthlyActualProfit = monthlyProfit - monthlyExpenses;
+    const lcid = 'en-EU' 
+    const numberFormatters = useNumberFormatters(lcid)  
+  
+      const income = await getIncome();
+      const expenses = await getExpenses();
   return (
     <>
         <div className="flex-1 space-y-4 p-8 pt-6">
@@ -89,18 +77,6 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
             </div>
           </div>
           <Tabs defaultValue="overview" className="space-y-4">
-            {/* <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value="reports" disabled>
-                Reports
-              </TabsTrigger>
-              <TabsTrigger value="notifications" disabled>
-                Notifications
-              </TabsTrigger>
-            </TabsList> */}
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
@@ -111,13 +87,8 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div
-
-
-
-                      className="text-2xl font-bold">NaN€ </div>
+                    <div className="text-2xl font-bold">{numberFormatters.currency('EUR').format(income)}</div>
                     <p className="text-xs text-muted-foreground">
-                      {/* {`${percentMonthlyRevenue} from last month`} */}
                     </p>
                   </CardContent>
                 </Card>
@@ -129,9 +100,8 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">NaN€ </div>
+                    <div className="text-2xl font-bold">{numberFormatters.currency('EUR').format(expenses)} </div>
                     <p className="text-xs text-muted-foreground">
-                      {/* {`${percentMonthlyExpenses} from last month`} */}
                     </p>
                   </CardContent>
                 </Card>
@@ -142,9 +112,9 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">NaN€ </div>
-                    {/* <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                       +19% from last month
-                    </p> */}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -156,9 +126,9 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">NaN€ </div>
-                    {/* <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                       +201 since last hour
-                    </p> */}
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -168,7 +138,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async () => {
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    {/* <Overview monthlyProfit={monthlyProfit} monthlyExpenses={monthlyExpenses} /> */}
+                    <Overview income={income} expenses={expenses} />
                   </CardContent>
                 </Card>
                   <DashboardPie />

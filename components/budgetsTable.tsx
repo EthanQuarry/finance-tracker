@@ -42,9 +42,9 @@ type BudgetProps = RowDataProps & {
     data: [{
         id: string
         name: string
-        assigned: number | null
-        activity: number | null
-        available: number | null
+        assigned: number 
+        activity: number 
+        available: number 
         note: string
         unique: [
             {
@@ -77,7 +77,10 @@ type RowProps = {
     }[];
 }
 
-export default function budgetsTable({ data, setSelectedRow }: BudgetProps) {
+export default function BudgetsTable({ data, setSelectedRow }: BudgetProps) {
+    const lcid = 'en-EU' // or return it from your i18n current locale
+    const numberFormatters = useNumberFormatters(lcid)
+    
 const dataExists = data.length < 1;
     const unSelected = {
         id: '',
@@ -95,8 +98,7 @@ const dataExists = data.length < 1;
         console.log(row)
     }
 
-    const lcid = 'en-EU' // or return it from your i18n current locale
-    const numberFormatters = useNumberFormatters(lcid)
+
     return (
         <>
             <div className="space-y-4 col-span-2">

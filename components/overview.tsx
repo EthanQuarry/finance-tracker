@@ -7,11 +7,11 @@ import { Value } from "@radix-ui/react-select";
 
 
 interface OverviewProps {
-  monthlyProfit: number | null | undefined,
-  monthlyExpenses: number | null | undefined,
+  income: number | null,
+  expenses: number | null
 }
 
-export function Overview({ monthlyProfit, monthlyExpenses}: OverviewProps) {
+export function Overview({ income, expenses}: OverviewProps) {
 
 const currentDate = new Date();
 const data = [
@@ -42,8 +42,8 @@ const data = [
   },
   {
     name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 0, 1).toLocaleString('default', { month: 'short' }),
-    Income: monthlyProfit,
-    Expenses: monthlyExpenses
+    Income: income,
+    Expenses: expenses
   }
 ]
 
