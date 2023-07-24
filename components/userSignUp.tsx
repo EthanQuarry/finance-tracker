@@ -41,9 +41,10 @@ export function UserSignUp({ className, ...props }: UserAuthFormProps) {
         body: JSON.stringify(formData),
       })
       if ( response.status === 200) {
+        setIsLoading(false)
         const data = await response.json()
         const id = data.user.id       
-        router.push(`/form/${id}`)
+        router.push(`/dashboard/budgets`)
       } else {
         console.log("An error occurred")
       }

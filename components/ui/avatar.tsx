@@ -41,7 +41,7 @@ const AvatarFallback = React.forwardRef<
     "flex h-full w-full items-center justify-center rounded-full bg-muted",
     className
   )} >
-    <img src="https://freesvg.org/img/abstract-user-flat-1.png"></img>
+    <img alt="profile icon" src="https://freesvg.org/img/abstract-user-flat-1.png" height={60} width={60}></img>
   </AvatarPrimitive.Fallback>
 ))
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName

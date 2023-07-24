@@ -36,9 +36,9 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
         body: JSON.stringify(formData),
       })
       if ( response.status === 200) {
-        const data = await response.json()
-        const id = data.user.id       
-        router.push(`/dashboard`)
+        setIsLoading(false)
+        const data = await response.json()    
+        router.push(`/dashboard/budgets`)
       } else {
         console.log("An error occurred")
       }
