@@ -16,11 +16,9 @@ type IncomeTableProps = {
           note: string
         }
       ]
-    EditRow: (rowId: string) => void
-    setEditRowBoolean: Dispatch<SetStateAction<boolean>>
 }
 
-export default function IncomeTable({data, EditRow, setEditRowBoolean}: IncomeTableProps) {
+export default function IncomeTable({data}: IncomeTableProps) {
     const lcid = 'en-EU' // or return it from your i18n current locale
     const numberFormatters = useNumberFormatters(lcid)
     
@@ -47,7 +45,7 @@ export default function IncomeTable({data, EditRow, setEditRowBoolean}: IncomeTa
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{numberFormatters.currency('EUR').format(item.amount)}</TableCell>
                                 <TableCell>{item.note}</TableCell>
-                                <TableCell><TableRowActions rowId={item.id} EditRow={EditRow} setEditRowBoolean={setEditRowBoolean} /></TableCell>
+                                <TableCell><TableRowActions rowId={item.id} /></TableCell>
                             </TableRow>
                         )) :
                             <TableRow >

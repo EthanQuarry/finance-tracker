@@ -23,13 +23,12 @@ import { Dispatch, SetStateAction } from "react"
 
 type TableRowActionsProps = {
     rowId: string
-    EditRow: (rowId: string) => void
-    setEditRowBoolean: Dispatch<SetStateAction<boolean>>
+
 }
 
 
 
-export function TableRowActions({rowId, EditRow, setEditRowBoolean}: TableRowActionsProps) {
+export function TableRowActions({rowId}: TableRowActionsProps) {
 
   const deleteRow = async () => {
     const response = await fetch('http://localhost:3000/api/user/income/delete', {
@@ -43,10 +42,6 @@ export function TableRowActions({rowId, EditRow, setEditRowBoolean}: TableRowAct
     if (response.status === 200) window.location.reload();
   }
 
-  const handleClick = () => {
-    EditRow(rowId)
-    setEditRowBoolean(true)
-  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -59,7 +54,6 @@ export function TableRowActions({rowId, EditRow, setEditRowBoolean}: TableRowAct
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={handleClick}>Edit</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={deleteRow}>
           Delete

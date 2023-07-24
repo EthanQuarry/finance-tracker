@@ -53,7 +53,7 @@ export default function IncomeContainer({ data, userId }: IncomeDataProps) {
     <>
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3 sm:grid-cols-1">
         <Card className="md:col-span-1 lg:col-span-2 ">
-          <IncomeTable editRow={editRow} data={data}/>
+          <IncomeTable data={data}/>
         </Card>
         <Card className="md:col-span-1 lg:col-span-1">
           <CardHeader>
@@ -61,7 +61,7 @@ export default function IncomeContainer({ data, userId }: IncomeDataProps) {
           </CardHeader>
 
           <CardContent>
-            <IncomeEdit editRow={editRow} rowId={""}  userId={userId}/>
+            <IncomeEdit  userId={userId}/>
           </CardContent>
         </Card>
       </div>
