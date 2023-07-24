@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
 
-        <ThemeProvider>
+        <ThemeProvider enableSystem={true} attribute='class'defaultTheme='system'>
         {children}
         </ThemeProvider>
       </body>

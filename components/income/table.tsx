@@ -4,6 +4,7 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../ui/table'
 import { TableRowActions } from "./table-row-actions"
+import { Dispatch, SetStateAction } from "react"
 
 type IncomeTableProps = {
     data: [
@@ -15,14 +16,17 @@ type IncomeTableProps = {
           note: string
         }
       ]
-    editRow: (rowId: string) => void
-    
 }
 
-export default function IncomeTable({data, editRow}: IncomeTableProps) {
-    const lcid = 'en-EU'
+export default function IncomeTable({data}: IncomeTableProps) {
+    const lcid = 'en-EU' // or return it from your i18n current locale
     const numberFormatters = useNumberFormatters(lcid)
     
+    
+    // const handleRowToggle = (row: RowProps) => {
+    //     setSelectedRow((prevRow) => (prevRow.id === row.id ? unSelected : row));
+    //     console.log(row)
+    // }
     
     return (    
         <>
@@ -36,14 +40,22 @@ export default function IncomeTable({data, editRow}: IncomeTableProps) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data.map((item) => (
+                        {data ? data.map((item) => (
                             <TableRow key={item.id} >
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{numberFormatters.currency('EUR').format(item.amount)}</TableCell>
                                 <TableCell>{item.note}</TableCell>
-                                <TableCell><TableRowActions rowId={item.id} editRow={editRow} /></TableCell>
+                                <TableCell><TableRowActions rowId={item.id} /></TableCell>
                             </TableRow>
-                        ))}
+                        )) :
+                            <TableRow >
+                                <TableCell>Create</TableCell>
+                                <TableCell>Category</TableCell>
+                                <TableCell>For</TableCell>
+                                <TableCell>Tracking</TableCell>
+                                <TableCell>Expenses</TableCell>
+
+                            </TableRow>}
                     </TableBody>
 
                 </Table>

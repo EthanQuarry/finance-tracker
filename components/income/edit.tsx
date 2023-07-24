@@ -1,91 +1,85 @@
-"use state"
+"use client"
 
 import { useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 
-
-
-type RowData = {
+type IncomeEditProps = {
     userId: string
+}
+
+type RowDataProps = {
     name: string
     amount: number | null
     note: string
 }
 
-type IncomeEditProps = {
-    rowId: string
-    editRow: (rowId: string) => void
-    userId: string
-}
-
-
-export default function IncomeEdit({ rowId, editRow, userId }: IncomeEditProps) {
-    const [rowData, setRowData] = useState<RowData>({
-        userId: userId,
+export default function IncomeEdit({ userId }: IncomeEditProps) {
+    const [rowData, setRowData] = useState<RowDataProps>({
         name: '',
         amount: null,
         note: ''
     })
-
-
+    
+    
     const submit = async () => {
-        const response = await fetch('/api/user/income/post', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ userId: rowData.userId, name: rowData.name, amount: rowData.amount, note: rowData.note })
-        })
+      const response = await fetch('/api/user/income/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: userId, name: rowData.name, amount: rowData.amount, note: rowData.note })
+      })
+
+      if (response.status === 200) {
+        window.location.reload()
+      } else alert('Something went wrong')
+      
     }
+  return (
+    <>
+      <div className='gruserId lg:gruserId-cols-2'>
 
-    return (
-        <>
-            <div className='grid grid-cols-2'>
+        <Input
+          className='lg:cols-span-1 '
+          placeholder="Name"
+          type="text"
+          value={rowData.name}
+          onChange={(e) => setRowData({
+            name: e.target.value,
+            amount: rowData.amount,
+            note: rowData.note
+          })}
+        />
 
-                <Input
-                    className='lg:cols-span-1 sm:col-span-2'
-                    placeholder="Name"
-                    type="text"
-                    value={rowData.name}
-                    onChange={(e) => setRowData({
-                        userId: rowData.userId,
-                        name: e.target.value,
-                        amount: rowData.amount,
-                        note: rowData.note
-                    })}
-                />
+        <Input
+          className='lg:cols-span-1'
+          placeholder="Amount assigned"
+          type="number"
+          value={rowData.amount?.toString()}
+          onChange={(e) => setRowData({
+            name: rowData.name,
+            amount: parseInt(e.target.value),
+            note: rowData.note
+          })}
+        />
 
-                <Input
-                    className='lg:cols-span-1 sm:col-span-2'
-                    placeholder="Amount"
-                    type="number"
-                    value={rowData.amount?.toString()}
-                    onChange={(e) => setRowData({
-                        userId: rowData.userId,
-                        name: rowData.name,
-                        amount: parseInt(e.target.value),
-                        note: rowData.note
-                    })}
-                />
+      </div>
+      <div className='gruserId lg:gruserId-cols-2'>
+        <Input
+          className='lg:cols-span-2'
+          placeholder="Little Note"
+          type='text'
+          value={rowData.note}
+          onChange={(e) => setRowData({
+            name: rowData.name,
+            amount: rowData.amount,
+            note: e.target.value
+          })}
+        />
 
-            </div>
-            <div>
-                <Input
-                    className='w-full'
-                    placeholder="Little Note"
-                    type='text'
-                    value={rowData.note}
-                    onChange={(e) => setRowData({
-                        userId: rowData.userId,
-                        name: rowData.name,
-                        amount: rowData.amount,
-                        note: e.target.value
-                    })}
-                />
-
-            </div>
-            <Button className="w-full" onClick={submit}>Submit</Button>
-        </>
-    )
+      </div>
+      <Button className="w-full" onClick={submit}>Submit</Button>
+    </>
+  )
 }
