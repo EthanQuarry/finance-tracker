@@ -18,15 +18,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { taskSchema } from "../data/schema"
+import { Dispatch, SetStateAction } from "react"
 
 
-type RowId = {
+type TableRowActionsProps = {
     rowId: string
+    EditRow: (rowId: string) => void
+    setEditRowBoolean: Dispatch<SetStateAction<boolean>>
 }
 
 
 
-export function TableRowActions({rowId}: RowId) {
+export function TableRowActions({rowId, EditRow, setEditRowBoolean}: TableRowActionsProps) {
 
   const deleteRow = async () => {
     const response = await fetch('http://localhost:3000/api/user/income/delete', {
@@ -38,6 +41,11 @@ export function TableRowActions({rowId}: RowId) {
     })
     const data = await response.json()
     if (response.status === 200) window.location.reload();
+  }
+
+  const handleClick = () => {
+    EditRow(rowId)
+    setEditRowBoolean(true)
   }
   return (
     <DropdownMenu>
@@ -51,7 +59,7 @@ export function TableRowActions({rowId}: RowId) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleClick}>Edit</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={deleteRow}>
           Delete

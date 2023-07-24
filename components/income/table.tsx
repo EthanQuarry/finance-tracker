@@ -4,6 +4,7 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../ui/table'
 import { TableRowActions } from "./table-row-actions"
+import { Dispatch, SetStateAction } from "react"
 
 type IncomeTableProps = {
     data: [
@@ -15,9 +16,11 @@ type IncomeTableProps = {
           note: string
         }
       ]
+    EditRow: (rowId: string) => void
+    setEditRowBoolean: Dispatch<SetStateAction<boolean>>
 }
 
-export default function IncomeTable({data}: IncomeTableProps) {
+export default function IncomeTable({data, EditRow, setEditRowBoolean}: IncomeTableProps) {
     const lcid = 'en-EU' // or return it from your i18n current locale
     const numberFormatters = useNumberFormatters(lcid)
     
@@ -44,7 +47,7 @@ export default function IncomeTable({data}: IncomeTableProps) {
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{numberFormatters.currency('EUR').format(item.amount)}</TableCell>
                                 <TableCell>{item.note}</TableCell>
-                                <TableCell><TableRowActions rowId={item.id} /></TableCell>
+                                <TableCell><TableRowActions rowId={item.id} EditRow={EditRow} setEditRowBoolean={setEditRowBoolean} /></TableCell>
                             </TableRow>
                         )) :
                             <TableRow >

@@ -39,8 +39,8 @@ export function UserNav({data}: DataProps) {
   const { firstName, lastName, email } = user;
   const { theme, setTheme } = useTheme();
 
-  const currentTheme = theme === 'system' ? systemTheme : theme;
-  
+  const currentTheme = theme === 'system' ? theme : theme;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
