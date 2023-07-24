@@ -1,7 +1,9 @@
 "use client"
 
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../ui/table'
+import { TableRowActions } from "./table-row-actions"
 
 type IncomeTableProps = {
     data: [
@@ -42,7 +44,7 @@ export default function IncomeTable({data}: IncomeTableProps) {
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{numberFormatters.currency('EUR').format(item.amount)}</TableCell>
                                 <TableCell>{item.note}</TableCell>
-
+                                <TableCell><TableRowActions rowId={item.id} /></TableCell>
                             </TableRow>
                         )) :
                             <TableRow >
