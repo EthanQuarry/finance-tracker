@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 
 const getIncome = async () => {
-  const id = await getIdFromCookie(cookies())
+  const id: string = await getIdFromCookie(cookies())
   const incomes = await db.income.findMany({
     where: {
       userId: id
@@ -43,7 +43,7 @@ const getIncome = async () => {
 }
 
 const getExpenses = async () => {
-  const id = await getIdFromCookie(cookies())
+  const id: string = await getIdFromCookie(cookies())
   const expenses = await db.category.findMany({
     where: {
       userId: id
@@ -55,12 +55,10 @@ const getExpenses = async () => {
   })
   return total
 }
-type DashboardPageProps = {
-
-}
 
 
-const DashboardPage: React.FC<DashboardPageProps> = async () => {
+
+const DashboardPage: React.FC = async () => {
     const lcid = 'en-EU' 
     const numberFormatters = useNumberFormatters(lcid)  
   
