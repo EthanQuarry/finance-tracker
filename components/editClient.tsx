@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Input } from "./ui/input"
 import { Icons } from "./icons"
 import * as React from "react"
+import { SelectedRowProps, SelectedUniqueProps } from "./container"
 
 
 type EditProps = {
@@ -28,37 +29,9 @@ type EditProps = {
             }
         ]
     }]
-    selectedRow: {
-        id: string
-        name: string
-        assigned: number | null
-        activity: number | null
-        available: number | null
-        note: string
-        unique: [
-            {
-                id: string;
-                name: string;
-                assigned: number | null;
-                activity: number | null;
-                available: number | null;
-                note: string;
-
-            }
-        ]
-    }
-    selectedUnique: {
-        id: string;
-        name: string;
-        assigned: number | null;
-        activity: number | null;
-        available: number | null;
-        note: string;
-
-    }
-
+    selectedRow: SelectedRowProps
+    selectedUnique: SelectedUniqueProps
     userId: string
-
 }
 
 type categoryData = {

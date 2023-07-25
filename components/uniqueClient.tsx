@@ -1,54 +1,14 @@
 "use client"
 
+import { SelectedRowProps, SelectedUniqueProps } from "./container";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
 import { SetStateAction } from "react";
 
 type RowDataProps = {
     userId: string
-    setSelectedRow: React.Dispatch<React.SetStateAction<{
-        id: string;
-        name: string;
-        assigned: number;
-        activity: number;
-        available: number;
-        note: string;
-        unique: {
-            id: string;
-            name: string;
-            assigned: number;
-            activity: number;
-            available: number;
-            note: string;
-        }[];
-    }>>
-    setSelectedUnique: React.Dispatch<React.SetStateAction<{
-        id: string;
-        name: string;
-        assigned: number;
-        activity: number;
-        available: number;
-        note: string;
-    }>>
-    selectedRow: {
-        id: string
-        name: string
-        assigned: number | null
-        activity: number | null
-        available: number | null
-        note: string
-        unique: [
-            {
-                id: string;
-                name: string;
-                assigned: number | null;
-                activity: number| null;
-                available: number | null;
-                note: string;
-
-            }
-        ]
-    }
-
+    setSelectedRow: React.Dispatch<React.SetStateAction<SelectedRowProps>>
+    setSelectedUnique: React.Dispatch<React.SetStateAction<SelectedUniqueProps>>
+    selectedRow: SelectedRowProps
 }
 
 
@@ -56,7 +16,7 @@ type RowDataProps = {
 export default function UniqueClient({ userId, setSelectedUnique, setSelectedRow, selectedRow }: RowDataProps) {
     const none = selectedRow.unique.length < 1;
     const uniqueData = selectedRow.unique;
-    const handleRowClick = (row: SetStateAction<{}>) => {
+    const handleRowClick = (row: SelectedUniqueProps) => {
         setSelectedUnique(row);
         console.log(row)
     }

@@ -31,7 +31,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  
+    // @ts-ignore
     const jwt = req.cookies.get(process.env.COOKIE_NAME);
     const isAuthenticated = !!jwt && await verifyJWT(jwt.value);
 
