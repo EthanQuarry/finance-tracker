@@ -30,13 +30,13 @@ export const metadata: Metadata = {
 
 const getIncome = async () => {
   const id = await getIdFromCookie(cookies())
-  const income = await db.income.findMany({
+  const incomes = await db.income.findMany({
     where: {
       userId: id
     }
   })
   let total = 0;
-  income.map((income) => {
+  incomes.map((income) => {
     total += income.amount
   })
   return total
