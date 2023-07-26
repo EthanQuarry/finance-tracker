@@ -31,7 +31,7 @@ type TableRowActionsProps = {
 export function TableRowActions({rowId}: TableRowActionsProps) {
 
   const deleteRow = async () => {
-    const response = await fetch('http://localhost:3000/api/user/income/delete', {
+    const response = await fetch(`${process.env.URL}/api/user/income/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

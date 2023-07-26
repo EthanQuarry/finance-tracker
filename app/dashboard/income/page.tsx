@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 }
 const getData = async () => {
   const userId = await getIdFromCookie(cookies());
-  const response = await fetch('http://localhost:3000/api/user/income/get', {
+  const response = await fetch(`${process.env.URL}/api/user/income/get`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
