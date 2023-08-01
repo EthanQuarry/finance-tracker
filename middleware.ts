@@ -26,6 +26,7 @@ export default async function middleware(req: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
+    pathname.startsWith("/landing") ||
     PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
@@ -47,7 +48,7 @@ export default async function middleware(req: NextRequest) {
     }
     
     if (!isAuthenticated) {
-      req.nextUrl.pathname = "/login";
+      req.nextUrl.pathname = "/landing";
       return NextResponse.redirect(req.nextUrl);
     }
     return NextResponse.next();
