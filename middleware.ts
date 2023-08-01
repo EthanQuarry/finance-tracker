@@ -38,7 +38,7 @@ export default async function middleware(req: NextRequest) {
  
     if (
       pathname.startsWith("/signup") ||
-      pathname.startsWith("/login")
+      pathname.startsWith("/login") 
     ) {
       if (isAuthenticated) {
         req.nextUrl.pathname = "/dashboard";
