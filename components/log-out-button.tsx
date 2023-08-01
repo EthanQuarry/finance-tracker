@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function LogOutButton() {
     const router = useRouter();
     const logout = async () => {
-        const response = await fetch('http://localhost:3000/api/user/logout')
+        const response = await fetch('/api/user/logout')
         if (response.ok) {
            
             router.push('/login')
