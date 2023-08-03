@@ -99,7 +99,7 @@ const groupedData: { [key: string]: { name: string; Income: number; Expenses: nu
           tickFormatter={(value) => `$${value}`}
         />
         <Bar dataKey="Income" fill="#adfa1d" radius={[4, 4, 0, 0]} />
-        <Bar dataKey="Expenses" fill="#272e3f" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="Expenses" fill="#6A1DFA" radius={[4, 4, 0, 0]} />
         <Tooltip cursor={false} />
         <Legend verticalAlign="top" height={36} />
       </BarChart>
