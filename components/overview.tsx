@@ -54,7 +54,7 @@ const data = [
   
   
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <ResponsiveContainer minHeight={300} maxHeight={400}>
       <BarChart data={data}>
         <XAxis
           dataKey="name"

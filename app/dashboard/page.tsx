@@ -66,11 +66,10 @@ const DashboardPage: React.FC = async () => {
       const expenses = await getExpenses();
   return (
     <>
-        <div className="flex-1 space-y-4 p-8 pt-6">
+        <div className="flex-1 space-y-4 p-8 pt-6 xs:w-full">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
-              <CalendarDateRangePicker />
 
             </div>
           </div>
@@ -130,16 +129,25 @@ const DashboardPage: React.FC = async () => {
                   </CardContent>
                 </Card>
               </div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 xs:grid-cols-4">
+                <Card className="lg:col-span-4 md:col-span-2 xs:col-span-4">
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
-                  <CardContent className="pl-2">
+                  <CardContent className="px-2">
                     <Overview income={income} expenses={expenses} />
                   </CardContent>
                 </Card>
+                <Card className="lg:col-span-3 md:col-span-2 xs:col-span-4">
+                  <CardHeader>
+                    <CardTitle>This Month</CardTitle>
+                  </CardHeader>
+                  <CardContent>
                   <DashboardPie />
+                  </CardContent>
+                </Card>
+                
+                  
               </div>
             </TabsContent>
           </Tabs>

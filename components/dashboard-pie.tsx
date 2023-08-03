@@ -34,21 +34,16 @@ const data02 = [
 export default function DashboardPie() {
     return (
         <>
-            <Card className="col-span-3">
-                <CardHeader>
-                    <CardTitle>This Month</CardTitle>
-                </CardHeader>
-                <CardContent className="pl-2" >
-                    <ResponsiveContainer width={730} height={250}>
-                        <PieChart width={730} height={250} >
+   
+                    <ResponsiveContainer maxHeight={400} minHeight={300}>
+                        <PieChart>
                             <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%"  outerRadius={55} legendType="circle" ></Pie>
                             <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} ></Pie>
                             <Tooltip />
                             <Legend verticalAlign="top" height={36} />
                         </PieChart>
                     </ResponsiveContainer>
-                </CardContent>
-            </Card>
+        
         </>
     )
 }
