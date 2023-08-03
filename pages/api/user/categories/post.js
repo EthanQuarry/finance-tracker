@@ -6,8 +6,7 @@ export default async function handler(req, res) {
                  const category = await db.category.create({
                 data: {
                     name: req.body.name,
-                    assigned: req.body.assigned,
-                    available: req.body.available,
+                    amount: req.body.amount,
                     note: req.body.note,
                     user: {
                          connect: {

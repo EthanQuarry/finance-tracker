@@ -2,57 +2,85 @@
 
 import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import React from 'react';
-import { Value } from "@radix-ui/react-select";
 
 
-
-interface OverviewProps {
-  income: number | null,
-  expenses: number | null
+type Income ={
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  userId: string;
+  amount: number;
+  note: string | null;
 }
 
-export function Overview({ income, expenses}: OverviewProps) {
+type Expense = {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  userId: string;
+  amount: number;
+  note: string | null;
+}
+
+interface OverviewProps {
+  incomes: Income[]
+  expenses: Expense[] 
+}
+
+type DataProps = {
+  name: string,
+  Income: number,
+  Expenses: number
+}
+
+export function Overview({ incomes, expenses}: OverviewProps) {
 
 const currentDate = new Date();
-const data = [
-  {
-    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 5, 1).toLocaleString('default', { month: 'short' }),
-    Income: Math.floor(Math.random() * 5000) + 1000,
-    Expenses: Math.floor(Math.random() * 5000) + 500
-  },
-  {
-    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 4, 1).toLocaleString('default', { month: 'short' }),
-    Income: Math.floor(Math.random() * 5000) + 1000,
-    Expenses: Math.floor(Math.random() * 5000) + 500
-  },
-  {
-    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1).toLocaleString('default', { month: 'short' }),
-    Income: Math.floor(Math.random() * 5000) + 1000,
-    Expenses: Math.floor(Math.random() * 5000) + 500
-  },
-  {
-    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, 1).toLocaleString('default', { month: 'short' }),
-    Income: Math.floor(Math.random() * 5000) + 1000,
-    Expenses: Math.floor(Math.random() * 5000) + 500
-  },
-  {
-    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1).toLocaleString('default', { month: 'short' }),
-    Income: Math.floor(Math.random() * 5000) + 1000,
-    Expenses: Math.floor(Math.random() * 5000) + 500
-  },
-  {
-    name: new Date(currentDate.getFullYear(), currentDate.getMonth() - 0, 1).toLocaleString('default', { month: 'short' }),
-    Income: income,
-    Expenses: expenses
+const data: DataProps[] = []
+
+const groupedData: { [key: string]: { name: string; Income: number; Expenses: number } } = {};
+  incomes.forEach(entry => {
+    const createdAtDate = new Date(entry.createdAt);
+    const name = createdAtDate.toLocaleString("default", { month: "short" });
+    const key = createdAtDate.toISOString().slice(0, 10);
+
+    if (!groupedData[key]) {
+      groupedData[key] = {
+        name,
+        Income: 0,
+        Expenses: 0,
+      };
+    }
+
+    groupedData[key].Income += entry.amount;
+  });
+
+  expenses.forEach(entry => {
+    const createdAtDate = new Date(entry.createdAt);
+    const name = createdAtDate.toLocaleString("default", { month: "short" });
+    const key = createdAtDate.toISOString().slice(0, 10);
+
+    if (!groupedData[key]) {
+      groupedData[key] = {
+        name,
+        Income: 0,
+        Expenses: 0,
+      };
+    }
+
+    groupedData[key].Expenses += entry.amount;
+  });
+
+  for (const key in groupedData) {
+    data.push({
+      name: groupedData[key].name,
+      Income: groupedData[key].Income,
+      Expenses: groupedData[key].Expenses,
+    });
   }
-]
 
-
-
-
-
-  
-  
   return (
     <ResponsiveContainer minHeight={300} maxHeight={400}>
       <BarChart data={data}>

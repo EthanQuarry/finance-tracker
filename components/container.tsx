@@ -16,21 +16,8 @@ type Props = {
   data: [{
     id: string
     name: string
-    assigned: number | null
-    activity: number | null
-    available: number | null
+    amount: number | null
     note: string
-    unique: [
-      {
-        id: string;
-        name: string;
-        assigned: number | null;
-        activity: number | null;
-        available: number | null;
-        note: string;
-
-      }
-    ]
   }]
 }
 
@@ -102,7 +89,7 @@ const Container = ({ userId, data }: Props) => {
         </Card>
         <Card className="md:col-span-1 lg:col-span-1">
           <CardHeader>
-            <CardTitle>{selectedRow.name === '' ? 'Create Catagory' : `Add Sub-Category to ${selectedRow.name}`}</CardTitle>
+            <CardTitle>{selectedRow.name === '' ? 'Add Expense' : `Add Sub-Category to ${selectedRow.name}`}</CardTitle>
           </CardHeader>
           <CardContent>
             <EditClient userId={userId} selectedRow={selectedRow} selectedUnique={selectedUnique} data={data} />
@@ -110,7 +97,7 @@ const Container = ({ userId, data }: Props) => {
         </Card>
       </div>
       <div className="grid gap-4 lg:grid-cols-1 ">
-        {selectedRow.name === 'Add Category' ?
+        {/* {selectedRow.name === 'Add Category' ?
           null
           :
           <Card>
@@ -123,7 +110,7 @@ const Container = ({ userId, data }: Props) => {
               <UniqueClient userId={userId} setSelectedUnique={setSelectedUnique} selectedRow={selectedRow} setSelectedRow={setSelectedRow} ></UniqueClient>
             </CardContent>
           </Card>
-        }
+        } */}
       </div>
     </>
 

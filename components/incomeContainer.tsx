@@ -66,20 +66,6 @@ export default function IncomeContainer({ data, userId }: IncomeDataProps) {
         </Card>
       </div>
       <div className="grid gap-4 lg:grid-cols-1 ">
-        {/* {selectedRow.name === 'Add Category' ? 
-         null 
-         : */}{
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                {/* {uniqueLength === 0 && `You haven't created a Category`}{uniqueLength === 1 && categoryName}{uniqueLength > 1 && `${uniqueLength} Selected Expenses of ${categoryName}`}{selectedRow.name == '' && 'No Sub-Catagories'}  */}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-
-            </CardContent>
-          </Card>
-        }
       </div>
     </>
   )

@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { Icons } from "../icons"
+
 
 type IncomeEditProps = {
     userId: string
@@ -15,6 +17,7 @@ type RowDataProps = {
 }
 
 export default function IncomeEdit({ userId }: IncomeEditProps) {
+  const [isLoading, setIsLoading] =useState(false);  
     const [rowData, setRowData] = useState<RowDataProps>({
         name: '',
         amount: null,
@@ -32,6 +35,7 @@ export default function IncomeEdit({ userId }: IncomeEditProps) {
       })
 
       if (response.status === 200) {
+        setIsLoading(false)
         window.location.reload()
       } else alert('Something went wrong')
       
@@ -79,7 +83,12 @@ export default function IncomeEdit({ userId }: IncomeEditProps) {
         />
 
       </div>
-      <Button className="w-full" onClick={submit}>Submit</Button>
+      <Button className="w-full" onClick={submit} disabled={isLoading}>
+        {isLoading && (
+          <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
+        )
+
+      }Submit</Button>
     </>
   )
 }

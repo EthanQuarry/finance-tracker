@@ -44,11 +44,9 @@ model Category {
   userId    String
   unique    Unique[]
 
-  assigned Int @default(0)
-  activity Int @default(0)
-  available Int @default(0)
+  amount Int @default(0)
 
-   note     String?
+  note     String?
 
   deleted Boolean @ default(false)
 
@@ -65,7 +63,7 @@ model Unique {
   name   String
 
   userId   String
-  owner     User    @relation(fields: [userId], references: [id] , onDelete: NoAction, onUpdate: NoAction)
+  user     User    @relation(fields: [userId], references: [id] , onDelete: NoAction, onUpdate: NoAction)
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id] )
   target Target[]
@@ -100,16 +98,18 @@ model Target {
 }
 
 model Income {
-  id        String      @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name      String
+  name   String
 
-  user      User @relation(fields: [userId], references: [id])
-  userId    String
+  userId   String
+  user     User    @relation(fields: [userId], references: [id])
 
-  amount    Int
-  note      String?
+  amount Int @default(0)
+  
+  note     String?
 
+  @@index([userId])
 }

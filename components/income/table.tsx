@@ -40,7 +40,7 @@ export default function IncomeTable({data}: IncomeTableProps) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data ? data.map((item) => (
+                        {data?.map((item) => (
                             <TableRow key={item.id} >
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{
@@ -49,15 +49,7 @@ export default function IncomeTable({data}: IncomeTableProps) {
                                 <TableCell>{item.note}</TableCell>
                                 <TableCell><TableRowActions rowId={item.id} /></TableCell>
                             </TableRow>
-                        )) :
-                            <TableRow >
-                                <TableCell>Create</TableCell>
-                                <TableCell>Category</TableCell>
-                                <TableCell>For</TableCell>
-                                <TableCell>Tracking</TableCell>
-                                <TableCell>Expenses</TableCell>
-
-                            </TableRow>}
+                        ))}
                     </TableBody>
 
                 </Table>

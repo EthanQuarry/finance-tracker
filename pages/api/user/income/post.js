@@ -6,6 +6,7 @@ export default async function handler(req, res) {
             data: {
                 name: req.body.name,
                 amount: req.body.amount,
+                note: req.body.note,
                 user: {
                     connect: {
                         id: req.body.userId
