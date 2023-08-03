@@ -1,5 +1,6 @@
 "use client"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { useTheme } from "next-themes"
 
 import {
@@ -20,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import LogOutButton from "./log-out-button"
+
 
 
 type DataProps = {
@@ -44,10 +46,13 @@ export function UserNav({data}: DataProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full" aria-label="Profile">
-          <Avatar className="h-8 w-8">
-            {/* <AvatarImage src="/avatars/01.png" alt="@shadcn" /> */}
-            <AvatarFallback></AvatarFallback>
+        <Button variant="ghost" className="" aria-label="Profile">
+          <Avatar className="h-10 w-10 flex items-center">
+          {currentTheme === 'dark' ? 
+         <FontAwesomeIcon icon={faUser} size='xl' />
+          :
+          <FontAwesomeIcon icon={faUser} size='xl' />
+          } 
           </Avatar>
         </Button>
       </DropdownMenuTrigger>

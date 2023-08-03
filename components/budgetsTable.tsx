@@ -58,8 +58,8 @@ export default function BudgetsTable({ data, setSelectedRow }: BudgetProps) {
                         <TableRow>
                             <TableCell>Expense</TableCell>
                             <TableCell>Amount</TableCell>
-
                             <TableCell>Note</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

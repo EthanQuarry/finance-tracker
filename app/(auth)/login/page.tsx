@@ -41,7 +41,7 @@ export default function AuthenticationPage() {
           </div>
         </div>
         <div className="lg:p-8 sm:pt-8 xs:h-full xs:py-10">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+          <div className="mx-auto flex flex-col justify-center space-y-6 xs:w-[270px] xxs:w-10/12">
             <div className="flex flex-col space-y-2 py-8 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
                 Login
