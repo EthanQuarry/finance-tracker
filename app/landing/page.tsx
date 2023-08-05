@@ -16,8 +16,14 @@ const Landing: FC = () => {
                 </CardHeader>   
           
                 <CardContent>
-                    <Link href='/login'><Button className="w-full">See App</Button></Link>
+                    <Link href='/login'><Button className="w-full mb-4">See App</Button></Link>
+                    <CardDescription className="text-center">
+                    test@gmail.com
+                    <br/>
+                    test
+                </CardDescription>
                 </CardContent>
+             
                 
             </Card>
             </main>
