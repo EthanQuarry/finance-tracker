@@ -43,7 +43,7 @@ const data: DataProps[] = []
 const groupedData: { [key: string]: { name: string; Income: number; Expenses: number } } = {};
   incomes.forEach(entry => {
     const createdAtDate = new Date(entry.createdAt);
-    const name = createdAtDate.toLocaleString("default", { month: "short" });
+    const name = createdAtDate.toLocaleString('en-GB', { day: 'numeric', month: 'short' });
     const key = createdAtDate.toISOString().slice(0, 10);
 
     if (!groupedData[key]) {
@@ -59,7 +59,7 @@ const groupedData: { [key: string]: { name: string; Income: number; Expenses: nu
 
   expenses.forEach(entry => {
     const createdAtDate = new Date(entry.createdAt);
-    const name = createdAtDate.toLocaleString("default", { month: "short" });
+    const name = createdAtDate.toLocaleString('en-GB', { day: 'numeric', month: 'short' });
     const key = createdAtDate.toISOString().slice(0, 10);
 
     if (!groupedData[key]) {
