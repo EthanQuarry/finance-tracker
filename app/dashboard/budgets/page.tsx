@@ -36,8 +36,6 @@ const getData = async () => {
 export default async function BudgetsPage() {
   const userId = await getIdFromCookie(cookies());
   const data = await getData();
-
-
   return (
     <>
       <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
