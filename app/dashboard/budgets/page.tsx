@@ -1,14 +1,8 @@
-import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Metadata } from "next"
-
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { getIdFromCookie } from "@/lib/auth"
 import { cookies } from "next/headers"
-
 import Container from "@/components/container"
-import IncomeClient from "@/components/incomeClient"
-import ReactDOM from 'react-dom'
+
 
 
 export const metadata: Metadata = {
