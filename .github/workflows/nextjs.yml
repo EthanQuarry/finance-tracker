@@ -83,6 +83,8 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Print Env Variables
+        run: env
       - name: Prisma Generate
         run: npx prisma generate
       - name: Prisma Migrate Deploy
