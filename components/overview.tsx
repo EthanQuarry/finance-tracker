@@ -1,10 +1,10 @@
- "use client"
+"use client"
 
 import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import React from 'react';
 
 
-type Income ={
+type Income = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -26,21 +26,21 @@ type Expense = {
 
 interface OverviewProps {
   incomes: Income[]
-  expenses: Expense[] 
+  expenses: Expense[]
 }
 
 type DataProps = {
+  createdAt: Date,
   name: string,
   Income: number,
   Expenses: number
 }
 
-export function Overview({ incomes, expenses}: OverviewProps) {
+export function Overview({ incomes, expenses }: OverviewProps) {
+  const data: DataProps[] = []
 
-const currentDate = new Date();
-const data: DataProps[] = []
+  const groupedData: { [key: string]: { createdAt: Date; name: string; Income: number; Expenses: number } } = {};
 
-const groupedData: { [key: string]: { name: string; Income: number; Expenses: number } } = {};
   incomes.forEach(entry => {
     const createdAtDate = new Date(entry.createdAt);
     const name = createdAtDate.toLocaleString('en-GB', { day: 'numeric', month: 'short' });
@@ -48,6 +48,7 @@ const groupedData: { [key: string]: { name: string; Income: number; Expenses: nu
 
     if (!groupedData[key]) {
       groupedData[key] = {
+        createdAt: createdAtDate,
         name,
         Income: 0,
         Expenses: 0,
@@ -64,6 +65,7 @@ const groupedData: { [key: string]: { name: string; Income: number; Expenses: nu
 
     if (!groupedData[key]) {
       groupedData[key] = {
+        createdAt: createdAtDate,
         name,
         Income: 0,
         Expenses: 0,
@@ -75,11 +77,19 @@ const groupedData: { [key: string]: { name: string; Income: number; Expenses: nu
 
   for (const key in groupedData) {
     data.push({
+      createdAt: groupedData[key].createdAt,
       name: groupedData[key].name,
       Income: groupedData[key].Income,
       Expenses: groupedData[key].Expenses,
     });
   }
+  // to satisfy typescript
+    function getTime(date?: Date) {
+      return date != null ? new Date(date).getTime() : 0;
+    }
+    
+    data.sort((a: DataProps, b: DataProps) => getTime(a.createdAt) - getTime(b.createdAt));
+
 
   return (
     <ResponsiveContainer minHeight={300} maxHeight={400}>
@@ -103,7 +113,7 @@ const groupedData: { [key: string]: { name: string; Income: number; Expenses: nu
         <Tooltip cursor={false} />
         <Legend verticalAlign="top" height={36} />
       </BarChart>
-      
+
     </ResponsiveContainer>
   )
 }
