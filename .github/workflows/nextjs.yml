@@ -15,12 +15,12 @@ on:
   workflow_dispatch:
 
 env: 
-  DATABASE_URL: postgresql://doadmin:AVNS_DdYCGZRZqPGela_LqwJ@budgeting-app-postgresql-do-user-13679208-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require
-  JWT_TOKEN: ${{ vars.JWT_TOKEN }}
-  COOKIE_NAME: ${{ vars.COOKIE_NAME }}
-  EMAIL: ${{ vars.EMAIL }}
-  PASSWORD: ${{ vars.PASSWORD }}
-  URL: ${{ vars.URL }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  JWT_TOKEN: ${{ secrets.JWT_TOKEN }}
+  COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
+  EMAIL: ${{ secrets.EMAIL }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+  URL: ${{ secrets.URL }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
