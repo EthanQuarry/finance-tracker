@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 env: 
-  DATABASE_URL: ${{ vars.DATABASE_URL }}
+  DATABASE_URL: postgresql://doadmin:AVNS_DdYCGZRZqPGela_LqwJ@budgeting-app-postgresql-do-user-13679208-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require
   JWT_TOKEN: ${{ vars.JWT_TOKEN }}
   COOKIE_NAME: ${{ vars.COOKIE_NAME }}
   EMAIL: ${{ vars.EMAIL }}
