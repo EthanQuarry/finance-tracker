@@ -84,7 +84,7 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Print Env Variables
-        run: env
+        run: env.DATABASE_URL
       - name: Prisma Generate
         run: npx prisma generate
       - name: Prisma Migrate Deploy
