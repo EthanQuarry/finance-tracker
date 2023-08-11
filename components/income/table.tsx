@@ -6,9 +6,10 @@ import { Table, TableBody, TableCell, TableHeader, TableRow } from '../ui/table'
 import { TableRowActions } from "./table-row-actions"
 import { Dispatch, SetStateAction } from "react"
 
-type IncomeTableProps = {
+export type IncomeTableProps = {
     data: [
         {
+          createdAt: Date;
           id: string
           name: string
           userId: string
@@ -37,6 +38,7 @@ export default function IncomeTable({data}: IncomeTableProps) {
                             <TableCell>Source</TableCell>
                             <TableCell>Amount</TableCell>
                             <TableCell>Note</TableCell>
+                            <TableCell>Date</TableCell>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -47,7 +49,8 @@ export default function IncomeTable({data}: IncomeTableProps) {
                                     //@ts-ignore
                                 numberFormatters.currency('EUR').format(item.amount)}</TableCell>
                                 <TableCell>{item.note}</TableCell>
-                                <TableCell><TableRowActions rowId={item.id} /></TableCell>
+                                <TableCell>{item && item.createdAt && new Date(item.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</TableCell>
+                                <TableCell><TableRowActions rowId={item.id} data={item} /></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
