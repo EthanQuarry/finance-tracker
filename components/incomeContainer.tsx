@@ -11,6 +11,7 @@ type IncomeDataProps = {
   userId: string
   data: [
     {
+      createdAt: Date;
       id: string
       name: string
       userId: string

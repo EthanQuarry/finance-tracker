@@ -19,16 +19,16 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { taskSchema } from "../data/schema"
 import { Dispatch, SetStateAction } from "react"
-
-
-type TableRowActionsProps = {
-    rowId: string
-
-}
+import { TableRowActionsDataProps } from "../income/table-row-actions"
+import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog"
+import EditRow from "./editRow"
 
 
 
-export function TableRowActions({rowId}: TableRowActionsProps) {
+
+
+
+export function TableRowActions({ rowId, data }: TableRowActionsDataProps ) {
 
   const deleteRow = async () => {
     const response = await fetch('/api/user/categories/delete', {
@@ -57,9 +57,20 @@ export function TableRowActions({rowId}: TableRowActionsProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={deleteRow}>
           Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          <DropdownMenuShortcut>☠️</DropdownMenuShortcut>
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
+
+        <AlertDialog>
+          <AlertDialogTrigger className='w-full relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 '>
+            Edit 
+            <DropdownMenuShortcut> 👻 </DropdownMenuShortcut>
+          </AlertDialogTrigger>
+          <EditRow rowId={rowId} data={data} />
+        </AlertDialog>
+
       </DropdownMenuContent>
     </DropdownMenu>
   )
 }
+
