@@ -1,4 +1,4 @@
-name: Test Build Before Deployment
+name: Test
 
 on:
   # Runs on pushes targeting the default branch
