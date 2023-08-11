@@ -13,6 +13,7 @@ type BudgetProps = RowDataProps & {
     data: [{
         createdAt: Date;
         id: string
+        userId: string;
         name: string
         amount: number | null
         note: string
@@ -75,7 +76,7 @@ export default function BudgetsTable({ data, setSelectedRow }: BudgetProps) {
                                 <TableCell>
                                     {item && item.createdAt && new Date(item.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                                 </TableCell>
-                                <TableCell><TableRowActions rowId={item.id} /></TableCell>
+                                <TableCell><TableRowActions rowId={item.id} data={item} /></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

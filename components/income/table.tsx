@@ -23,12 +23,6 @@ export default function IncomeTable({data}: IncomeTableProps) {
     const lcid = 'en-EU' // or return it from your i18n current locale
     const numberFormatters = useNumberFormatters(lcid)
     
-    
-    // const handleRowToggle = (row: RowProps) => {
-    //     setSelectedRow((prevRow) => (prevRow.id === row.id ? unSelected : row));
-    //     console.log(row)
-    // }
-    
     return (    
         <>
             <div className="space-y-4 col-span-2">
