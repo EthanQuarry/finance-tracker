@@ -4,53 +4,12 @@ import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
 import { SelectedRowProps } from './container';
 import { TableRowActions } from './expense/table-row-actions';
-
-type RowDataProps = {
-    setSelectedRow: React.Dispatch<React.SetStateAction<SelectedRowProps>>
-}
-
-type BudgetProps = RowDataProps & {
-    data: [{
-        createdAt: Date;
-        id: string
-        userId: string;
-        name: string
-        amount: number | null
-        note: string
-    }]
-}
+import { TableProps } from './income/table';
 
 
-export default function BudgetsTable({ data, setSelectedRow }: BudgetProps) {
-    const lcid = 'en-EU' // or return it from your i18n current locale
+export default function BudgetsTable({ data }: TableProps) {
+    const lcid = 'en-EU'
     const numberFormatters = useNumberFormatters(lcid)
-
-    const dataExists = data?.length < 1;
-    const unSelected: SelectedRowProps = {
-        id: '',
-        name: 'Add Category',
-        assigned: null,
-        activity: null,
-        available: null,
-        note: '',
-        unique: [
-            {
-                id: '',
-                name: '',
-                assigned: null,
-                activity: null,
-                available: null,
-                note: '',
-            }
-        ]
-    }
-
-
-    const handleRowToggle = (row: SelectedRowProps) => {
-        setSelectedRow((prevRow) => (prevRow.id === row.id ? unSelected : row));
-        console.log(row)
-    }
-
 
     return (
         <>
@@ -65,20 +24,78 @@ export default function BudgetsTable({ data, setSelectedRow }: BudgetProps) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data?.map((item) => (
-                            <TableRow key={item.id}>
-                                <TableCell>{item.name}</TableCell>
+                        {data?.map(function (item, index) {
+                            const noteLength = 20;
+                            const nameLength = 8;
+                            if (item.name.length > nameLength
+                                &&
+                                item.note.length > noteLength) {
+                                    const name = item.name.substring(0, nameLength) + '...'
+                                    const note = item.note.substring(0, noteLength) + '...'
+                                    return (
+                                        <TableRow key={item.id}>
+                                            <TableCell>{name}</TableCell>
+        
+                                            <TableCell>{
+                                                //@ts-ignore
+                                                numberFormatters.currency('EUR').format(item.amount)}</TableCell>
+                                            <TableCell>{note}</TableCell>
+                                            <TableCell>
+                                                {item && item.createdAt && new Date(item.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                                            </TableCell>
+                                            <TableCell><TableRowActions rowId={item.id} data={item} /></TableCell>
+                                        </TableRow>
+                                    )
+                            }
+                            if (item.name.length > nameLength) {
+                                const name = item.name.substring(0, nameLength) + '...'
+                                return (
+                                    <TableRow key={item.id}>
+                                        <TableCell>{name}</TableCell>
+    
+                                        <TableCell>{
+                                            //@ts-ignore
+                                            numberFormatters.currency('EUR').format(item.amount)}</TableCell>
+                                        <TableCell>{item.note}</TableCell>
+                                        <TableCell>
+                                            {item && item.createdAt && new Date(item.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                                        </TableCell>
+                                        <TableCell><TableRowActions rowId={item.id} data={item} /></TableCell>
+                                    </TableRow>
+                                )
+                            }
+                            if (item.note.length > noteLength) {
+                                const note = item.note.substring(0, noteLength) + '...';
+                                return (
+                                    <TableRow key={item.id}>
+                                        <TableCell>{item.name}</TableCell>
+    
+                                        <TableCell>{
+                                            //@ts-ignore
+                                            numberFormatters.currency('EUR').format(item.amount)}</TableCell>
+                                        <TableCell>{note}</TableCell>
+                                        <TableCell>
+                                            {item && item.createdAt && new Date(item.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                                        </TableCell>
+                                        <TableCell><TableRowActions rowId={item.id} data={item} /></TableCell>
+                                    </TableRow>
+                                )
+                            }
+                            return (
+                                <TableRow key={item.id}>
+                                    <TableCell>{item.name}</TableCell>
 
-                                <TableCell>{
-                                    //@ts-ignore
-                                    numberFormatters.currency('EUR').format(item.amount)}</TableCell>
-                                <TableCell>{item.note}</TableCell>
-                                <TableCell>
-                                    {item && item.createdAt && new Date(item.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
-                                </TableCell>
-                                <TableCell><TableRowActions rowId={item.id} data={item} /></TableCell>
-                            </TableRow>
-                        ))}
+                                    <TableCell>{
+                                        //@ts-ignore
+                                        numberFormatters.currency('EUR').format(item.amount)}</TableCell>
+                                    <TableCell>{item.note}</TableCell>
+                                    <TableCell>
+                                        {item && item.createdAt && new Date(item.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                                    </TableCell>
+                                    <TableCell><TableRowActions rowId={item.id} data={item} /></TableCell>
+                                </TableRow>
+                            )
+                        })}
                     </TableBody>
 
                 </Table>

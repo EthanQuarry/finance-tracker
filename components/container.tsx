@@ -14,7 +14,9 @@ import EditClient from "./editClient";
 type Props = {
   userId: string
   data: [{
+    createdAt: Date;
     id: string
+    userId: string
     name: string
     amount: number | null
     note: string
@@ -85,7 +87,7 @@ const Container = ({ userId, data }: Props) => {
     <>
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3 sm:grid-cols-1">
         <Card className="md:col-span-1 lg:col-span-2 ">
-          <BudgetsTable data={data} setSelectedRow={setSelectedRow} />
+          <BudgetsTable data={data}/>
         </Card>
         <Card className="md:col-span-1 lg:col-span-1">
           <CardHeader>
@@ -95,22 +97,6 @@ const Container = ({ userId, data }: Props) => {
             <EditClient userId={userId} selectedRow={selectedRow} selectedUnique={selectedUnique} data={data} />
           </CardContent>
         </Card>
-      </div>
-      <div className="grid gap-4 lg:grid-cols-1 ">
-        {/* {selectedRow.name === 'Add Category' ?
-          null
-          :
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                {uniqueLength === 0 && `You haven't created a Category`}{uniqueLength === 1 && categoryName}{uniqueLength > 1 && `${uniqueLength} Selected Expenses of ${categoryName}`}{selectedRow.name == '' && 'No Sub-Catagories'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <UniqueClient userId={userId} setSelectedUnique={setSelectedUnique} selectedRow={selectedRow} setSelectedRow={setSelectedRow} ></UniqueClient>
-            </CardContent>
-          </Card>
-        } */}
       </div>
     </>
 

@@ -1,10 +1,7 @@
-import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Metadata } from "next"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { getIdFromCookie } from "@/lib/auth"
 import { cookies } from "next/headers"
-import Container from "@/components/container"
-import IncomeClient from "@/components/incomeClient"
 import IncomeContainer from '@/components/incomeContainer'
 
 
@@ -33,8 +30,6 @@ const getData = async () => {
 export default async function BudgetsPage() {
   const userId = await getIdFromCookie(cookies());
   const data = await getData();
-
-
   return (
     <>
       <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">

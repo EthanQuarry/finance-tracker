@@ -84,7 +84,7 @@ export default function EditRow({ rowId, data }: TableRowActionsDataProps ) {
                             id: rowData.id,
                             name: rowData.name,
                             userId: rowData.userId,
-                            amount: parseInt(e.target.value),
+                            amount: rowData.amount,
                             note: e.target.value
                         })}
                     />
