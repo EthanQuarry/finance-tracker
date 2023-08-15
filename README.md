@@ -34,5 +34,5 @@
 
   <p>For any questions or issues, please contact our support team at dev.ethanquarry@gmail.com.</p>
 
-  <p><em>Note: &copy; 2023 Copyright of Ethan Quarry</em></p>
+  <p style="text-align: center;"><em>&copy; 2023 Copyright of Ethan Quarry</em></p>
 
