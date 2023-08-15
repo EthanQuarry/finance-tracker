@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 export default async function handler(req, res) {
     if (req.method === 'POST') {
 
-                 const category = await db.category.create({
+                 const expense = await db.expense.create({
                 data: {
                     name: req.body.name,
                     amount: req.body.amount,
@@ -21,9 +21,9 @@ export default async function handler(req, res) {
 
 
 
-            if (category.ok) {
+            if (expense.ok) {
                 return res.status(500).json({ message: 'No' })
-            } else return res.status(200).json({ user: category })
+            } else return res.status(200).json({ user: expense })
 
         }
 

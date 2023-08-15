@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
 
 
-    const categories = await db.category.findMany({
+    const categories = await db.expense.findMany({
       where: {
         userId: req.body.userId
       },

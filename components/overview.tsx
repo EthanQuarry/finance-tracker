@@ -106,7 +106,7 @@ export function Overview({ incomes, expenses }: OverviewProps) {
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `$${value}`}
+          tickFormatter={(value) => `€${value}`}
         />
         <Bar dataKey="Income" fill="#adfa1d" radius={[4, 4, 0, 0]} />
         <Bar dataKey="Expenses" fill="#6A1DFA" radius={[4, 4, 0, 0]} />
