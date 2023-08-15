@@ -19,6 +19,8 @@ model User {
   password  String
   isAdmin   Boolean @default(false)
 
+  accountAdded Boolean @default(false)
+
   income     Income[]
   expense    Expense[]
   subIncome  SubIncome[]
@@ -34,7 +36,6 @@ model Expense {
   user   User   @relation(fields: [userId], references: [id])
   userId String
 
-  subIncome SubIncome[]
 
   amount Int @default(0)
 
@@ -42,7 +43,7 @@ model Expense {
 
   deleted Boolean @default(false)
 
-  SubExpense SubExpense[]
+  subExpenses SubExpense[]
 
   @@index([userId, id])
 }
@@ -65,6 +66,8 @@ model SubExpense {
   available Int @default(0)
 
   note String?
+
+
 
   deleted Boolean @default(false)
 
@@ -97,7 +100,7 @@ model Income {
   amount Int @default(0)
 
   note      String?
-  SubIncome SubIncome[]
+  subIncomes SubIncome[]
 
   @@index([userId])
 }
@@ -117,8 +120,6 @@ model SubIncome {
   amount Int @default(0)
 
   note      String?
-  Expense   Expense? @relation(fields: [expenseId], references: [id])
-  expenseId String?
 
   @@index([userId])
 }
