@@ -8,7 +8,6 @@
     <li>Connect securely to your bank provider to automatically sync and categorize transactions.</li>
     <li>Analyze spending patterns through intuitive graphs and visualizations.</li>
     <li>Set budget goals and receive notifications when nearing your limits.</li>
-    <li>Export financial data for personal records or tax purposes.</li>
   </ul>
 
   <h2>Installation</h2>
@@ -16,9 +15,10 @@
   <ol>
     <li>Clone or download the repository.</li>
     <li>Open the app on your preferred code editor.</li>
-    <li>Configure your database settings in the 'config' file.</li>
-    <li>Run 'npm install' to install the required dependencies.</li>
-    <li>Run 'npm start' to launch the app.</li>
+    <li>Configure your database URL in enviroment variables as <code>DATABASE_URL = ''</code></li>
+    <li>Run 'npm i' to install the required dependencies.</li>
+    <li>Run <code>npx prisma generate && npx prisma migrate deploy</code> to setup prisma with your database.</li>
+    <li>Run 'npm run dev' to launch the app in development mode.</li>
     <li>Access the app through your web browser at http://localhost:3000.</li>
   </ol>
 
@@ -32,7 +32,7 @@
     <li>Generate reports and export financial data as needed.</li>
   </ol>
 
-  <p>For any questions or issues, please contact our support team at support@financetrackerapp.com.</p>
+  <p>For any questions or issues, please contact our support team at dev.ethanquarry@gmail.com.</p>
 
-  <p><em>Note: This is a basic README template. Customize it with your app's specific information and guidelines.</em></p>
+  <p><em>Note: &copy; 2023 Copyright of Ethan Quarry</em></p>
 
