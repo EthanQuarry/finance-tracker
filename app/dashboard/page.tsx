@@ -1,11 +1,10 @@
 import { Metadata } from "next"
 import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { cookies } from "next/headers";
-import { Activity, CreditCard, DollarSign, Download, Users } from "lucide-react"
+import { DollarSign,  Users } from "lucide-react"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -15,11 +14,11 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { CalendarDateRangePicker } from "@/components/dateRangePicker"
+
 import { Overview } from "@/components/overview"
 import { getIdFromCookie } from "@/lib/auth"
 import { db } from "@/lib/db";
-import DashboardPie from "@/components/dashboard-pie";
+
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -55,7 +54,7 @@ const allIncome = async () => {
 
 const getExpenses = async () => {
   const id: string = await getIdFromCookie(cookies())
-  const expenses = await db.category.findMany({
+  const expenses = await db.expense.findMany({
     where: {
       userId: id
     }
@@ -69,7 +68,7 @@ const getExpenses = async () => {
 
 const allExpenses = async () => {
   const id: string = await getIdFromCookie(cookies())
-  const expenses = await db.category.findMany({
+  const expenses = await db.expense.findMany({
     where: {
       userId: id
     }
@@ -123,32 +122,7 @@ const DashboardPage: React.FC = async () => {
                   </p>
                 </CardContent>
               </Card>
-              {/* <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Monthly Saving Goals</CardTitle>
-                    <CreditCard className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">NaN€ </div>
-                    <p className="text-xs text-muted-foreground">
-                      +19% from last month
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Monthly Profit
-                    </CardTitle>
-                    <Activity className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">NaN€ </div>
-                    <p className="text-xs text-muted-foreground">
-                      +201 since last hour
-                    </p>
-                  </CardContent>
-                </Card> */}
+
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 xs:grid-cols-4">
               <Card className="lg:col-span-7 md:col-span-2 xs:col-span-4">
@@ -159,16 +133,6 @@ const DashboardPage: React.FC = async () => {
                   <Overview incomes={incomes} expenses={expenses} />
                 </CardContent>
               </Card>
-              {/* <Card className="lg:col-span-3 md:col-span-2 xs:col-span-4">
-                  <CardHeader>
-                    <CardTitle>This Month</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                  <DashboardPie />
-                  </CardContent>
-                </Card> */}
-
-
             </div>
           </TabsContent>
         </Tabs>

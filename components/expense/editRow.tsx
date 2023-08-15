@@ -26,7 +26,7 @@ export default function EditRow({ rowId, data }: TableRowActionsDataProps ) {
     })
 
     const onSubmit = async () => {
-        const response = await fetch('/api/user/categories/put', {
+        const response = await fetch('/api/user/expenses/put', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

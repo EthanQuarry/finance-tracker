@@ -51,7 +51,7 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
         setIsLoading(true)
 
         try {
-            const response = await fetch("/api/user/categories/post", {
+            const response = await fetch("/api/user/expenses/post", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export default function EditClient({ userId, selectedRow, selectedUnique, data }
         setIsLoading(true)
 
         try {
-            const response = await fetch("/api/user/unique/post", {
+            const response = await fetch("/api/user/income/sub/post", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
