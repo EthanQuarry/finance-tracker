@@ -2,7 +2,6 @@
 
 import { useNumberFormatters } from '@builtwithjavascript/formatters'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
-import { SelectedRowProps } from './container';
 import { TableRowActions } from './expense/table-row-actions';
 import { TableProps } from './income/table';
 
@@ -10,7 +9,7 @@ import { TableProps } from './income/table';
 export default function BudgetsTable({ data }: TableProps) {
     const lcid = 'en-EU'
     const numberFormatters = useNumberFormatters(lcid)
-
+    console.log(data)
     return (
         <>
             <div className="space-y-4 col-span-2">

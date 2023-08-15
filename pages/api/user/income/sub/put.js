@@ -2,7 +2,7 @@ import { db } from '@/lib/db'
 
 export default async function handler(req, res) {
     if (req.method === 'PUT') {
-        const response = await db.category.update({
+        const response = await db.subincome.update({
             where: {
                 id: req.body.id
             },
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
             }
         })
         if (!response.ok) {
-            return res.status(200).json({ message: 'Expense updated successfully'})
+            return res.status(200).json({ message: 'Income updated successfully'})
         } else return res.status(500).json({ message: 'Something went wrong'})
     } else return res.status(500).json({ message: 'Wrong API method'})
 }

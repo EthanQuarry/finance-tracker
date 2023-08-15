@@ -7,19 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Schema Prisma 
-model Admin {
-  id        String     @id @default(uuid())
-  firstName String  @default("admin")
-  lastName  String?
-  email     String  @unique @default("admin@gmail.com")
-
-  createdAt DateTime @default(now())
-  isAdmin   Boolean  @default(true)
-}
-
+// Schema Prisma
 model User {
-  id        String      @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -29,72 +19,72 @@ model User {
   password  String
   isAdmin   Boolean @default(false)
 
-  income    Income[]
-  category  Category[]
-  unique    Unique[]
+  accountAdded Boolean @default(false)
+
+  income     Income[]
+  expense    Expense[]
+  subIncome  SubIncome[]
+  SubExpense SubExpense[]
 }
 
-model Category {
-  id        String      @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  name      String
-  user      User @relation(fields: [userId], references: [id])
-  userId    String
-  unique    Unique[]
-
-  amount Int @default(0)
-
-  note     String?
-
-  deleted Boolean @ default(false)
-
-  @@unique([userId, name])
-  @@index([userId, id])
-}
-
-
-model Unique {
+model Expense {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   name   String
-
-  userId   String
-  user     User    @relation(fields: [userId], references: [id] , onDelete: NoAction, onUpdate: NoAction)
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id] )
-  target Target[]
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
 
-  assigned Int @default(0)
-  activity Int @default(0)
+  amount Int @default(0)
+
+  note String?
+
+  deleted Boolean @default(false)
+
+  subExpenses SubExpense[]
+
+  @@index([userId, id])
+}
+
+model SubExpense {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  expenseId String
+  expense   Expense @relation(fields: [expenseId], references: [id])
+
+  assigned  Int @default(0)
+  activity  Int @default(0)
   available Int @default(0)
-  
-  note     String?
 
-  deleted Boolean   @default(false)
+  note String?
+
+
+
+  deleted Boolean @default(false)
 
   @@index([userId])
 }
 
-
 model Target {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  uniqueId String
-  name Unique @relation(fields: [uniqueId], references: [id])
-
   spending Boolean @default(false)
-  saving Boolean @default(false)
-  debt Boolean @default(false)
+  saving   Boolean @default(false)
+  debt     Boolean @default(false)
 
   requiredAmount Int
-  dateRequired String
+  dateRequired   String
 }
 
 model Income {
@@ -102,14 +92,34 @@ model Income {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name   String
+  name String
 
-  userId   String
-  user     User    @relation(fields: [userId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   amount Int @default(0)
-  
-  note     String?
+
+  note      String?
+  subIncomes SubIncome[]
+
+  @@index([userId])
+}
+
+model SubIncome {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  incomeId String
+  income   Income @relation(fields: [incomeId], references: [id])
+
+  amount Int @default(0)
+
+  note      String?
 
   @@index([userId])
 }

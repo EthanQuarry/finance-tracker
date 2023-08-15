@@ -31,7 +31,7 @@ import EditRow from "./editRow"
 export function TableRowActions({ rowId, data }: TableRowActionsDataProps ) {
 
   const deleteRow = async () => {
-    const response = await fetch('/api/user/categories/delete', {
+    const response = await fetch('/api/user/expenses/delete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
