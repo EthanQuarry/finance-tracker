@@ -1,23 +1,4 @@
 
-<head>
-  <title>Finance Tracker App README</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    h1 {
-      color: #333;
-    }
-    h2 {
-      color: #666;
-    }
-    p {
-      color: #444;
-    }
-  </style>
-</head>
-<body>
   <h1>Finance Tracker App</h1>
   <p>Welcome to the Finance Tracker App, your all-in-one solution for managing your inflows and outflows effortlessly.</p>
 
@@ -54,5 +35,4 @@
   <p>For any questions or issues, please contact our support team at support@financetrackerapp.com.</p>
 
   <p><em>Note: This is a basic README template. Customize it with your app's specific information and guidelines.</em></p>
-</body>
-</html>
+
