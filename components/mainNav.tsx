@@ -34,12 +34,6 @@ export function MainNav({
       >
         Income
       </Link>
-      <Link
-        href="/dashboard/accounts"
-        className={pathname === '/dashboard/accounts' ? 'text-sm font-medium text-primary transition-colors hover:text-primary' : 'text-sm font-medium text-muted-foreground transition-colors hover:text-primary'}
-      >
-        Accounts
-      </Link>
     </nav>
   )
 }

@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import LogOutButton from "./log-out-button"
+import Link from 'next/link'
 
 
 
@@ -65,6 +66,12 @@ export function UserNav({data}: DataProps) {
             </p>
           </div>
         </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <Link  href="/dashboard/accounts">
+            <DropdownMenuItem>Account</DropdownMenuItem>
+          </Link>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
     	    {currentTheme === 'dark' ? (
