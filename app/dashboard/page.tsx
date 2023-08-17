@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import { useNumberFormatters } from '@builtwithjavascript/formatters'
-import { cookies } from "next/headers";
 import { DollarSign,  Users } from "lucide-react"
 import {
   Card,
@@ -11,13 +10,9 @@ import {
 import {
   Tabs,
   TabsContent,
-  TabsList,
-  TabsTrigger,
 } from "@/components/ui/tabs"
 
 import { Overview } from "@/components/overview"
-import { getIdFromCookie } from "@/lib/auth"
-import { db } from "@/lib/db";
 import { getTotalIncomes } from "@/lib/service/income/getTotalIncomes";
 import { getAllExpenseSources } from "@/lib/service/expense/getAllExpenseSources";
 import { getAllIncomeSources } from "@/lib/service/income/getAllIncomeSources";
