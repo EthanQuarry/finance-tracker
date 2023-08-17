@@ -18,6 +18,10 @@ import {
 import { Overview } from "@/components/overview"
 import { getIdFromCookie } from "@/lib/auth"
 import { db } from "@/lib/db";
+import { getTotalIncomes } from "@/lib/service/income/getTotalIncomes";
+import { getAllExpenseSources } from "@/lib/service/expense/getAllExpenseSources";
+import { getAllIncomeSources } from "@/lib/service/income/getAllIncomeSources";
+import { getTotalExpenses } from "@/lib/service/expense/getTotalExpenses";
 
 
 export const metadata: Metadata = {
@@ -26,64 +30,16 @@ export const metadata: Metadata = {
 }
 
 
-
-const getIncome = async () => {
-  const id: string = await getIdFromCookie(cookies())
-  const incomes = await db.income.findMany({
-    where: {
-      userId: id
-    }
-  })
-  let total = 0;
-  incomes.map((income) => {
-    total += income.amount;
-  })
-
-  return total
-}
-
-const allIncome = async () => {
-  const id: string = await getIdFromCookie(cookies())
-  const incomes = await db.income.findMany({
-    where: {
-      userId: id
-    }
-  })
-  return incomes
-}
-
-const getExpenses = async () => {
-  const id: string = await getIdFromCookie(cookies())
-  const expenses = await db.expense.findMany({
-    where: {
-      userId: id
-    }
-  })
-  let total = 0;
-  expenses.map((expense) => {
-    total += expense.amount
-  })
-  return total
-}
-
-const allExpenses = async () => {
-  const id: string = await getIdFromCookie(cookies())
-  const expenses = await db.expense.findMany({
-    where: {
-      userId: id
-    }
-  })
-  return expenses
-}
-
-
 const DashboardPage: React.FC = async () => {
   const lcid = 'en-EU'
   const numberFormatters = useNumberFormatters(lcid)
-  const incomes = await allIncome()
-  const income = await getIncome();
-  const expense = await getExpenses();
-  const expenses = await allExpenses();
+
+  const incomes = await getAllIncomeSources()
+  const income = await getTotalIncomes();
+  const expense = await getTotalExpenses();
+  const expenses = await getAllExpenseSources();
+
+  const isNewUser = 'maybe';
   return (
     <>
       <div className="flex-1 space-y-4 p-8 pt-6 xs:w-full">
