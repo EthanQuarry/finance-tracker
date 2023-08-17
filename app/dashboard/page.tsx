@@ -17,6 +17,7 @@ import { getTotalIncomes } from "@/lib/service/income/getTotalIncomes";
 import { getAllExpenseSources } from "@/lib/service/expense/getAllExpenseSources";
 import { getAllIncomeSources } from "@/lib/service/income/getAllIncomeSources";
 import { getTotalExpenses } from "@/lib/service/expense/getTotalExpenses";
+import { isNewUser } from "@/lib/service/account/isNewUser"
 
 
 export const metadata: Metadata = {
@@ -34,7 +35,10 @@ const DashboardPage: React.FC = async () => {
   const expense = await getTotalExpenses();
   const expenses = await getAllExpenseSources();
 
-  const isNewUser = 'maybe';
+  const newUser: boolean | Error = await isNewUser();
+  if (newUser) {
+    
+  }
   return (
     <>
       <div className="flex-1 space-y-4 p-8 pt-6 xs:w-full">
