@@ -47,7 +47,7 @@ export default function AuthenticationPage() {
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 xs:w-[270px] xxs:w-10/12">
             <div className="flex flex-col space-y-2 py-8 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
-                Create an account
+                Welcome.
               </h1>
               <p className="text-sm text-muted-foreground">
                 Enter your details below and create an account.
@@ -57,7 +57,7 @@ export default function AuthenticationPage() {
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link
-                href="/terms"
+                href="/"
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Terms of Service

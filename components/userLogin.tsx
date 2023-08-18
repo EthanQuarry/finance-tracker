@@ -8,13 +8,15 @@ import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import 'react-toastify/dist/ReactToastify.css';
+import { Slide, ToastContainer, toast } from "react-toastify";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserLogin({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const router = useRouter();
-  
+
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
@@ -35,12 +37,46 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
         },
         body: JSON.stringify(formData),
       })
-      if ( response.status === 200) {
+      if (response.status === 200) {
         setIsLoading(false)
-        const data = await response.json()    
+        toast.success("Successfully Logged in!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Slide
+          });
         router.push(`/dashboard/budgets`)
+      } else if (response.status === 401) {
+        setIsLoading(false)
+        toast.error("Email or Password Incorrect. Please try again", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Slide
+          });
       } else {
-        console.log("An error occurred")
+        setIsLoading(false)
+        toast.error("Something went wrong. Please try again later", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Slide
+          });
       }
 
     } catch (error) {
@@ -92,6 +128,20 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
             )}
             Sign in with Email
           </Button>
+        </div>
+        <div className="toast-container">
+        <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+           />
         </div>
       </form>
       <div className="relative">

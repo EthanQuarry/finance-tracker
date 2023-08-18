@@ -8,6 +8,8 @@ import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import 'react-toastify/dist/ReactToastify.css';
+import { Slide, ToastContainer, toast } from "react-toastify";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -42,11 +44,44 @@ export function UserSignUp({ className, ...props }: UserAuthFormProps) {
       })
       if ( response.status === 200) {
         setIsLoading(false)
-        const data = await response.json()
-        const id = data.user.id       
+        toast.success("Successfully Created Account!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Slide
+          });      
         router.push(`/dashboard/budgets`)
+      } else if (response.status === 400) {
+        setIsLoading(false)
+        toast.error("User Email Already Exists.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Slide
+          });
       } else {
-        console.log("An error occurred")
+        setIsLoading(false)
+        toast.error("Something went wrong. Please try again later", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Slide
+          });
       }
 
     } catch (error) {
@@ -134,6 +169,20 @@ export function UserSignUp({ className, ...props }: UserAuthFormProps) {
             )}
             Sign up
           </Button>
+        </div>
+        <div className="toast-container">
+        <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+           />
         </div>
       </form>
       <div className="relative">
