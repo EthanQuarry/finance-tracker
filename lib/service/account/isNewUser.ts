@@ -10,8 +10,8 @@ export const isNewUser = async () => {
         }
     })
     if (user) {
-        if (user.accountAdded) {
-            return false
-        } return true
+        if (user.accountAdded == true) {
+            return 'true'
+        } return 'false'
     } return new Error("User not found")
 }

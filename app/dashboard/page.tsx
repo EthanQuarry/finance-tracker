@@ -39,11 +39,9 @@ const DashboardPage: React.FC = async () => {
   const expense = await getTotalExpenses();
   const expenses = await getAllExpenseSources();
 
-  const newUser: boolean | Error = await isNewUser();
+  const newUser: 'true' | 'false' | Error = await isNewUser();
   const userId = await getIdFromCookie(cookies());
-  if (newUser) {
-
-
+  if (newUser === 'false') {
     return (
       <>
         <div className="flex-1 space-y-4 p-8 pt-6 xs:w-full">

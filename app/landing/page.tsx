@@ -11,16 +11,14 @@ const Landing: FC = () => {
             <Card>
                 <CardHeader>
                     <CardTitle>
-                    Sorry no landing page yet  😢
+                    Welcome to the open beta of PocketProfit
                     </CardTitle>
                 </CardHeader>   
           
                 <CardContent>
                     <Link href='/login'><Button className="w-full mb-4">See App</Button></Link>
                     <CardDescription className="text-center">
-                    test@gmail.com
-                    <br/>
-                    test
+                    Signup to get 6 months free on release!
                 </CardDescription>
                 </CardContent>
              
