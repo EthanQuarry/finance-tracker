@@ -1,7 +1,7 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
-
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
+import  Image  from "next/image"
 export type Institution = {
     id: string
     name: string
@@ -11,10 +11,20 @@ export type Institution = {
     countries: string[]
 }
 
+export const columnHelper = createColumnHelper<Institution>()
+
 export const columns: ColumnDef<Institution>[] = [
     {
         accessorKey: 'logo',
         header: 'Logo',
+        cell: tableProps => (
+            <Image 
+                src={tableProps.row.original.logo}
+                alt={tableProps.row.original.name}
+                width={50}
+                height={50}
+            />
+        )
     },
     {
         accessorKey: 'name',
