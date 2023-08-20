@@ -16,19 +16,19 @@ export const columnHelper = createColumnHelper<Institution>()
 export const columns: ColumnDef<Institution>[] = [
     {
         accessorKey: 'logo',
-        header: 'Logo',
+        header: '',
         cell: tableProps => (
             <Image 
                 src={tableProps.row.original.logo}
                 alt={tableProps.row.original.name}
-                width={50}
-                height={50}
+                width={40}
+                height={40}
             />
         )
     },
     {
         accessorKey: 'name',
-        header: 'Name',
+        header: '',
     },
     
 ]

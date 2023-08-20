@@ -20,7 +20,9 @@ export default async function Setup() {
                     <CardHeader className='text-center'>
                         <CardTitle>Select your Bank</CardTitle>
                     </CardHeader>
+                    <CardContent>
                     <DataTable columns={columns} data={data} />
+                    </CardContent>
                 </Card>
             </main>
         </>
