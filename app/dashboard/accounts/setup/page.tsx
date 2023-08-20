@@ -4,7 +4,7 @@ import { Institution, columns } from "@/components/account/columns";
 
 
 export default async function Setup() {
-    const response = await fetch('https://bankaccountdata.gocardless.com/api/v2/institutions/?country=ie', {
+    const response = await fetch('https://bankaccountdata.gocardless.com/api/v2/institutions/', {
         method: 'GET',
         headers: {
             'authorization': 'Bearer ' + process.env.GOCARDLESS_ACCESS_TOKEN,
