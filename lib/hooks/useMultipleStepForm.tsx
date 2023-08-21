@@ -15,11 +15,7 @@ export function useMultipleStepForm(steps: ReactElement[]) {
     function previousStep() {
         setCurrentStep((prev) => prev - 1);
     }
-    
 
-
-
-    
     return {
         isFirstStep: currentStep === 0,
         step: steps[currentStep],

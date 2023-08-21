@@ -22,28 +22,27 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
-import { CardContent, Card } from "../ui/card"
+
+
 import { Input } from "@/components/ui/input"
-
+import { CountryType } from "./columns";
+import { Card, CardContent } from "@/components/ui/card";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    setCountrySelected: (country: string) => void;
 }
 
 
-export function DataTable<TData, TValue>({
+export function CountryDataTable<TData, TValue>({
     columns,
     data,
+    setCountrySelected
 }: DataTableProps<TData, TValue>) {
-    const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []
     );
@@ -62,7 +61,6 @@ export function DataTable<TData, TValue>({
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
         state: {
-            sorting,
             columnFilters,
             columnVisibility,
             rowSelection,
@@ -82,10 +80,28 @@ export function DataTable<TData, TValue>({
 
     }
 
+    const updatedColumns = columns.map((column) => {
+          return {
+            ...column,
+            cell: (props) => (
+              <button onClick={() => {
+                setCountrySelected(props.row.original.code);
+              }}>
+                {props.row.original.name}
+              </button>
+            ),
+          };
+      });
+
     return (
         <>
             <div className="flex justify-center py-4">
-                <Input
+                <Popover>
+                    <PopoverTrigger>
+                        <Button>Select Country</Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                    <Input
                     placeholder="Search..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
@@ -93,11 +109,8 @@ export function DataTable<TData, TValue>({
                     }
                     className="max-w-sm"
                 />
-            </div>
-            <div className="rounded-md border">
-                <Card className="">
-                    <CardContent>
-                       <Table className="">
+
+                       <Table>
 
                         <TableBody>
                             {table.getRowModel().rows?.length ? (
@@ -124,33 +137,12 @@ export function DataTable<TData, TValue>({
                             )}
                         </TableBody>
                     </Table> 
-                    </CardContent>
-                    
-                </Card>
+
+                    </PopoverContent>
+                </Popover>
             </div>
+
         </>
     )
 }
 
-
-{/* <>
-<CardContent className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 xxs:grid-cols-1 gap-5">
-    {data.map((item: Institution) => (
-        <Card key={item.id} className="col-span-1">
-                <Button 
-                    onClick={() => sendToLogin(item.id)}
-                    variant='ghost' 
-                    className="w-full">
-                    <Image 
-                        className="rounded-full m-3"
-                        src={item.logo}
-                        alt={item.name}
-                        width={30}
-                        height={50}
-                    />
-                    <label>{item.name}</label>
-                </Button>
-        </Card>
-    ))}
-</CardContent>
-</> */}
