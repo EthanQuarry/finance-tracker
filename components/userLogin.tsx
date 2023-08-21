@@ -39,31 +39,8 @@ export function UserLogin({ className, ...props }: UserAuthFormProps) {
       })
       if (response.status === 200) {
         setIsLoading(false)
-        toast.success("Successfully Logged in!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide
-          });
-        router.push(`/dashboard/budgets`)
-      } else if (response.status === 401) {
-        setIsLoading(false)
-        toast.error("Email or Password Incorrect. Please try again", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide
-          });
+        const data = await response.json()    
+        router.push(`/dashboard`)
       } else {
         setIsLoading(false)
         toast.error("Something went wrong. Please try again later", {

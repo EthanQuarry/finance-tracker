@@ -18,7 +18,7 @@ export function MainNav({
     >
       <Link
         href="/dashboard"
-        className={pathname === '/dashboard' ? 'text-sm font-medium text-primary transition-colors hover:text-primary' : 'text-sm font-medium text-muted-foreground transition-colors hover:text-primary'}
+        className={pathname === '/dashboard' && '/dashboard/accounts' ? 'text-sm font-medium text-primary transition-colors hover:text-primary' : 'text-sm font-medium text-muted-foreground transition-colors hover:text-primary'}
       >
        Dashboard
       </Link>
@@ -33,12 +33,6 @@ export function MainNav({
         className={pathname === '/dashboard/income' ? 'text-sm font-medium text-primary transition-colors hover:text-primary' : 'text-sm font-medium text-muted-foreground transition-colors hover:text-primary'}
       >
         Income
-      </Link>
-      <Link
-        href="/dashboard/accounts"
-        className={pathname === '/dashboard/accounts' ? 'text-sm font-medium text-primary transition-colors hover:text-primary' : 'text-sm font-medium text-muted-foreground transition-colors hover:text-primary'}
-      >
-        Accounts
       </Link>
     </nav>
   )

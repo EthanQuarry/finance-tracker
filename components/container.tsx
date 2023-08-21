@@ -4,7 +4,6 @@ import * as React from "react"
 import { useState } from "react";
 import BudgetsTable from "./budgetsTable";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import UniqueClient from "./uniqueClient";
 import EditClient from "./editClient";
 
 
@@ -79,9 +78,6 @@ const Container = ({ userId, data }: Props) => {
     available: 0,
     note: '',
   });
-
-  const uniqueLength: number = selectedRow.unique.length;
-  const categoryName: string = selectedRow.name
 
   return (
     <>
