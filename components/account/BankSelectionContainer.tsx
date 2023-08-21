@@ -13,11 +13,11 @@ type Props = {
     countryData: CountryType[]
 }
 
-export const passCountryCodeFunction = (code: string) => {
-    const { countrySelected, setCountrySelected } = useAddBankAccountContext();
-    setCountrySelected(code)
-    console.log(countrySelected)
-}
+// export const passCountryCodeFunction = (code: string) => {
+//     const { countrySelected, setCountrySelected } = useAddBankAccountContext();
+//     setCountrySelected(code)
+//     console.log(countrySelected)
+// }
 
 export default function BankSelectionContainer({ data, countryData }: Props) {
 

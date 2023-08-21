@@ -2,7 +2,7 @@
 
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
 
-import { passCountryCodeFunction } from "../BankSelectionContainer";
+// import { passCountryCodeFunction } from "../BankSelectionContainer";
 
 
 export type CountryType = {
@@ -22,10 +22,12 @@ export const CountryColumns: ColumnDef<CountryType>[] = [
         header: '',
         cell: props => {
             return (
-                <button onClick={() => passCountryCodeFunction(props.row.original.code)}>{props.row.original.name}</button>
+                <button >{props.row.original.name}</button>
 
             )
         }
     }
     
 ]
+
+// onClick={() => passCountryCodeFunction(props.row.original.code)}
